@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Applying OSINT (Open Source Intelligence) to Supply Chain Verification - meganfrench.tech">
+    <title>Applying OSINT to Supply Chain Verification | Megan French</title>
+
+    <!-- Google Fonts: Inter & Merriweather (for article body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'], // Added serif for reading readability
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        navy: '#003366',
+                        govblue: '#005ea2'
+                    },
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                color: '#374151',
+                                a: {
+                                    color: '#0284c7',
+                                    '&:hover': {
+                                        color: '#0369a1',
+                                    },
+                                },
+                            },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Tailwind Typography Plugin (simulated via basic CSS below since CDN plugins can be tricky in raw HTML files) -->
+    <style>
+        /* Base typography styles for the article body to simulate @tailwindcss/typography */
+        .prose p { margin-top: 1.25em; margin-bottom: 1.25em; line-height: 1.8; }
+        .prose h2 { color: #003366; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.75em; margin-top: 2em; margin-bottom: 0.75em; line-height: 1.3; }
+        .prose h3 { color: #003366; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.35em; margin-top: 1.6em; margin-bottom: 0.6em; line-height: 1.4; }
+        .prose ul { margin-top: 1.25em; margin-bottom: 1.25em; padding-left: 1.625em; list-style-type: disc; }
+        .prose li { margin-top: 0.5em; margin-bottom: 0.5em; }
+        .prose blockquote { font-style: italic; border-left-width: 4px; border-left-color: #0ea5e9; margin-top: 1.6em; margin-bottom: 1.6em; padding-left: 1em; color: #4b5563; background-color: #f0f9ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0;}
+        .prose img { border-radius: 0.75rem; margin-top: 2em; margin-bottom: 2em; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .prose a { color: #0284c7; text-decoration: underline; font-weight: 500; }
+        .prose a:hover { color: #0369a1; }
+        .prose strong { color: #111827; font-weight: 700; }
+        
+        /* Animations & Utilities */
+        .fade-in { animation: fadeIn 0.8s ease-in forwards; }
+        .fade-in-delayed { animation: fadeIn 0.8s ease-in 0.2s forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+        .ad-placeholder {
+            background-image: repeating-linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), repeating-linear-gradient(45deg, #f3f4f6 25%, #ffffff 25%, #ffffff 75%, #f3f4f6 75%, #f3f4f6);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Navbar (Identical to index) -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-gray-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-navy tracking-tight">meganfrench<span class="text-primary-600">.tech</span></a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Latest</a>
+                    <a href="downloads.html" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Downloads</a>
+                    <a href="online_learning.html" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Online Learning</a>
+                    <a href="forum.html" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Forum</a>
+                    <a href="#subscribe" class="text-gray-600 hover:text-primary-600 font-medium transition-colors"><i class="far fa-envelope mr-1"></i> Subscribe</a>
+                    
+                    <span class="text-gray-300">|</span>
+                    <a href="https://meganfrench.info" class="bg-gray-100 hover:bg-gray-200 text-navy px-4 py-2 rounded-lg font-bold text-sm transition-colors shadow-sm border border-gray-200 inline-flex items-center">
+                        About Meg <span class="ml-1 font-normal text-xs text-gray-500">(.info)</span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-navy focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 text-gray-600 font-medium hover:bg-gray-50 rounded-md">Latest Dispatches</a>
+                <a href="downloads.html" class="block px-3 py-2 text-gray-600 font-medium hover:bg-gray-50 rounded-md">Downloads</a>
+                <a href="online_learning.html" class="block px-3 py-2 text-gray-600 font-medium hover:bg-gray-50 rounded-md">Online Learning</a>
+                <a href="forum.html" class="block px-3 py-2 text-gray-600 font-medium hover:bg-gray-50 rounded-md">Forum</a>
+                <div class="border-t border-gray-100 my-2 pt-2"></div>
+                <a href="https://meganfrench.info" class="block px-3 py-2 text-navy font-bold bg-gray-100 rounded-md text-center">Return to meganfrench.info</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24 pb-12 flex-grow">
+        <!-- Article Header Hero Area -->
+        <div class="w-full bg-gray-900 border-b-4 border-primary-600 py-16 sm:py-20 relative overflow-hidden mb-10">
+            <!-- Background Image/Pattern -->
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 30px 30px;"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-navy via-transparent to-transparent opacity-80"></div>
+            
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 fade-in text-center sm:text-left">
+                <!-- Breadcrumb -->
+                <nav class="flex text-sm text-gray-400 mb-6 justify-center sm:justify-start" aria-label="Breadcrumb">
+                  <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                      <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-xs mx-2"></i>
+                        <a href="#" class="hover:text-white transition-colors">Analysis</a>
+                      </div>
+                    </li>
+                  </ol>
+                </nav>
+
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6 font-sans">
+                    Applying OSINT (Open Source Intelligence) to Supply Chain Verification
+                </h1>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-4 sm:space-y-0 sm:space-x-6 text-gray-300 text-sm font-mono">
+                    <div class="flex items-center">
+                        <img src="mfbiopic.jpg" alt="Megan French" class="w-8 h-8 rounded-full border border-primary-500 mr-3 object-cover" onerror="this.src='https://placehold.co/100x100/0ea5e9/ffffff?text=MF'">
+                        <span>By Megan French</span>
+                    </div>
+                    <span class="hidden sm:inline">•</span>
+                    <div><i class="far fa-calendar-alt mr-2 text-primary-400"></i> October 2, 2026</div>
+                    <span class="hidden sm:inline">•</span>
+                    <div><i class="far fa-clock mr-2 text-primary-400"></i> 10 min read</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-10">
+                
+                <!-- LEFT COLUMN: Article Content (70%) -->
+                <article class="lg:w-2/3 fade-in bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-gray-200">
+                    
+                    <!-- Lead Paragraph (Styling slightly larger) -->
+                    <p class="text-xl text-gray-600 font-sans leading-relaxed mb-8">
+                        How techniques typically reserved for cybersecurity and intelligence analysis can be deployed to verify vendors, vet raw material sources, and ensure FAR compliance before a contract is even signed. Discover why standard validation is no longer enough.
+                    </p>
+
+                    <!-- Main Article Body (Uses Serif font for readability) -->
+                    <div class="prose max-w-none font-serif text-lg text-gray-700">
+                        <p>In the world of federal contracting, checking a box on SAM.gov is often treated as the ultimate vetting process. We assume that if an entity has an active CAGE code and isn't on an exclusion list, they are ready to do business. However, on the factory floor and deep within the tiers of a supply chain, reality is significantly more complicated.</p>
+
+                        <p>Standard validation confirms a company exists on paper. It does not confirm that the company actually manufactures the components they claim to, nor does it guarantee those components aren't being sourced from prohibited entities masked by shell corporations.</p>
+
+                        <h2>The Limits of Traditional Vetting</h2>
+                        
+                        <p>Traditional procurement vetting relies heavily on self-attestation. Vendors fill out representations and certifications (Reps & Certs) affirming their compliance with the Federal Acquisition Regulation (FAR). While these are legally binding, they are fundamentally reactive. You often only discover a false attestation after an audit or, worse, a component failure in the field.</p>
+
+                        <blockquote>
+                            "We are trusting the paperwork of the entity we are trying to investigate. It’s a closed loop of trust that modern supply chain attacks actively exploit."
+                        </blockquote>
+
+                        <p>Consider a scenario where a prime contractor needs specialized aluminum extrusions. A lower-tier subcontractor provides documentation showing domestic sourcing. Traditional vetting stops there. But what if that subcontractor is merely a warehousing front, repacking extrusions manufactured overseas by an entity flagged for intellectual property theft?</p>
+
+                        <h2>Enter OSINT: Shifting from Reactive to Proactive</h2>
+
+                        <p>Open Source Intelligence (OSINT) involves collecting and analyzing publicly available data to answer a specific intelligence question. While commonly associated with cybersecurity (threat hunting) or journalism, these methodologies are highly adaptable to supply chain verification.</p>
+
+                        <p>Instead of merely verifying <em>documents</em>, OSINT allows us to verify <em>capability</em> and <em>relationships</em>.</p>
+
+                        <h3>Key Techniques for Procurement</h3>
+
+                        <ul>
+                            <li><strong>Corporate Structure Analysis:</strong> Mapping out parent companies, subsidiaries, and joint ventures using international corporate registries (beyond just the US state level). We look for shared directors, overlapping addresses, or patterns of rapid name changes.</li>
+                            <li><strong>Geospatial Intelligence (GEOINT):</strong> Using publicly available satellite imagery (like Google Earth or specialized commercial platforms) to verify physical infrastructure. If a vendor claims to manufacture heavy machinery but their registered address is a small residential storefront, that's an immediate red flag.</li>
+                            <li><strong>Shipping and Customs Data:</strong> Analyzing bills of lading (BoL) and import/export records (available through commercial databases) to trace the actual movement of physical goods. This can reveal if a 'manufacturer' is actually just a heavy importer of finished goods.</li>
+                            <li><strong>Digital Footprinting:</strong> Analyzing a company's web presence, job postings, and employee profiles (e.g., LinkedIn). Are they hiring engineers and machinists, or just sales and logistics staff? Does their website infrastructure share IP addresses or hosting providers with known prohibited entities?</li>
+                        </ul>
+
+                        <h2>A Practical Example: The "Domestic" Switch</h2>
+
+                        <p>Last year, we encountered a vendor offering a highly specialized electronic switch at a surprisingly low price, claiming full domestic assembly to satisfy Buy American Act (BAA) requirements. Their SAM.gov profile was flawless.</p>
+
+                        <p>Applying basic OSINT techniques, we looked past the SAM.gov profile:</p>
+
+                        <ol>
+                            <li><strong>Geospatial check:</strong> We looked at the address listed for their manufacturing facility. The satellite imagery showed a small, generic warehouse bay, not a facility equipped for electronics assembly.</li>
+                            <li><strong>Shipping records:</strong> A quick check of import records associated with their corporate name revealed regular, large shipments of "finished electronic switching components" from a region with known supply chain risks.</li>
+                            <li><strong>Digital footprint:</strong> Their career page only listed openings for "Logistics Coordinators" and "Account Managers"—no assembly technicians or quality control engineers.</li>
+                        </ol>
+
+                        <p>The conclusion was clear before a single dollar changed hands: they were likely importing finished goods, repackaging them, and falsely certifying them as domestic. By taking 45 minutes to apply these techniques, we avoided a potentially disastrous compliance violation.</p>
+
+                        <h2>Building an OSINT Capability</h2>
+
+                        <p>Implementing OSINT in procurement doesn't require hiring ex-intelligence operatives. It requires a shift in mindset and equipping existing buyers and operations staff with new tools and training.</p>
+
+                        <p>We need to stop asking, "Do they have the right paperwork?" and start asking, "Does the public footprint of this company align with the capabilities they claim to possess?"</p>
+                    </div>
+
+                    <!-- Article Footer Tags & Share -->
+                    <div class="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">OSINT</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">Procurement</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">Supply Chain</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">FAR</span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm text-gray-500 font-medium">Share:</span>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-500 hover:text-white transition-colors flex items-center justify-center"><i class="fab fa-linkedin-in text-sm"></i></button>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-500 hover:text-white transition-colors flex items-center justify-center"><i class="fab fa-twitter text-sm"></i></button>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-500 hover:text-white transition-colors flex items-center justify-center"><i class="fas fa-link text-sm"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Author Bio Box (End of article) -->
+                    <div class="mt-10 bg-gray-50 rounded-xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 border border-gray-100">
+                        <img src="mfbiopic.jpg" alt="Megan French" class="w-20 h-20 rounded-full border-2 border-white shadow-sm object-cover" onerror="this.src='https://placehold.co/100x100/0ea5e9/ffffff?text=MF'">
+                        <div class="text-center sm:text-left">
+                            <h4 class="font-bold text-navy text-lg">Megan French</h4>
+                            <p class="text-xs text-primary-600 font-bold uppercase tracking-wider mb-2">Operations Specialist</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-3">Megan specializes in bridging the gap between factory floor operations, digital systems research, and federal procurement logic. She writes regularly on supply chain friction and operational resilience.</p>
+                            <a href="https://meganfrench.info" class="text-sm font-bold text-navy hover:text-primary-600 transition-colors inline-flex items-center">View Full Profile <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RIGHT COLUMN: Sidebar (30%) - Same structure as index -->
+                <aside class="lg:w-1/3 space-y-8 fade-in-delayed">
+                    
+                    <!-- Search Widget -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                        <form class="relative">
+                            <input type="text" placeholder="Search field notes..." class="w-full pl-4 pr-10 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 text-sm">
+                            <button type="submit" class="absolute right-0 top-0 mt-2.5 mr-3 text-gray-400 hover:text-primary-600">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Newsletter Mini-Widget -->
+                    <div class="bg-primary-50 rounded-xl shadow-sm border border-primary-100 p-6" id="subscribe">
+                        <div class="text-primary-600 text-2xl mb-3"><i class="fas fa-envelope-open-text"></i></div>
+                        <h3 class="text-lg font-bold text-navy mb-2">Join the Dispatch</h3>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Get the latest analysis on manufacturing ops and federal contracting sent directly to your inbox.</p>
+                        <form id="newsletterForm" class="space-y-2">
+                            <input type="email" name="email" data-fs-field placeholder="Email Address" class="w-full px-3 py-2 text-sm rounded border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" required>
+                            <span data-fs-error="email" class="text-red-500 text-xs mt-1 block"></span>
+                            
+                            <div data-fs-success class="hidden bg-green-100 text-green-800 text-xs p-2 rounded">
+                                Subscription confirmed! Welcome aboard.
+                            </div>
+                            <div data-fs-error class="hidden bg-red-100 text-red-800 text-xs p-2 rounded">
+                                Error subscribing. Please try again.
+                            </div>
+
+                            <button type="submit" data-fs-submit-btn class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded text-sm transition-colors shadow-sm disabled:opacity-50">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Primary Ad Slot (300x250 Medium Rectangle) -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col items-center hidden sm:flex">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wide mb-2 w-full text-center">Advertisement</span>
+                        <div class="w-full max-w-[300px] h-[250px] ad-placeholder flex flex-col items-center justify-center border border-dashed border-gray-300 rounded cursor-pointer hover:border-gray-400 transition-colors">
+                            <i class="fas fa-bullhorn text-2xl text-gray-300 mb-2"></i>
+                            <span class="text-xs font-mono text-gray-400 font-bold">AD SPACE AVAILABLE</span>
+                            <span class="text-[10px] text-gray-400 mt-1">300 x 250</span>
+                        </div>
+                    </div>
+
+                    <!-- Related Articles Widget -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-sm font-bold text-navy uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">Related Notes</h3>
+                        <div class="space-y-4">
+                            
+                            <a href="#" class="block group">
+                                <div class="text-xs text-primary-600 font-bold mb-1">Procurement</div>
+                                <h4 class="text-sm font-bold text-navy group-hover:text-primary-600 transition-colors leading-tight">Decoding SAM.gov and the Path to a CAGE Code</h4>
+                            </a>
+                            
+                            <div class="border-t border-gray-100"></div>
+                            
+                            <a href="#" class="block group">
+                                <div class="text-xs text-primary-600 font-bold mb-1">Tech & Systems</div>
+                                <h4 class="text-sm font-bold text-navy group-hover:text-primary-600 transition-colors leading-tight">UI/UX on the Machine HMI: Why Old Interfaces Cost Money</h4>
+                            </a>
+
+                            <div class="border-t border-gray-100"></div>
+                            
+                            <a href="#" class="block group">
+                                <div class="text-xs text-primary-600 font-bold mb-1">Operations</div>
+                                <h4 class="text-sm font-bold text-navy group-hover:text-primary-600 transition-colors leading-tight">LPTA vs. Best Value: A Factory Floor Perspective</h4>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Identical to index) -->
+    <footer class="bg-gray-900 text-gray-300 py-10 border-t-4 border-primary-600 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm">
+                <div class="mb-4 md:mb-0 text-center md:text-left">
+                    <a href="index.html" class="text-xl font-bold text-white tracking-tight mb-2 inline-block">meganfrench<span class="text-primary-500">.tech</span></a>
+                    <p class="text-gray-500 text-xs">The Field Notes & Dispatches Blog. &copy; 2026.</p>
+                </div>
+                <div class="flex space-x-6 text-gray-400">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-linkedin text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-github text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-sm', 'bg-white/95');
+                nav.classList.remove('bg-white/98');
+            } else {
+                nav.classList.remove('shadow-sm', 'bg-white/95');
+                nav.classList.add('bg-white/98');
+            }
+        });
+    </script>
+    
+    <!-- Formspree Integration -->
+    <script>
+        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+        formspree('initForm', { formElement: '#newsletterForm', formId: 'xnpnegwv' });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+</body>
+</html>
