@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defense & NDAA Compliance | Synergy Manufacturing, LLC</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',    // slate-900
+                            steel: '#64748b',   // slate-500
+                            accent: '#2563eb',  // blue-600
+                            light: '#f8fafc',   // slate-50
+                            dark: '#020617',    // slate-950
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Tactical background overlay for hero section */
+        .hero-bg {
+            background-color: #020617;
+            background-image: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            position: relative;
+        }
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        /* Blueprint grid effect for sUAS section */
+        .blueprint-bg {
+            background-color: #0f172a;
+            background-image: linear-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-brand-light text-slate-800 antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-b-2 border-brand-accent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-brand-accent text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-inner group-hover:bg-blue-700 transition-colors">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-brand-navy tracking-tight leading-none group-hover:text-brand-accent transition-colors">SYNERGY</h1>
+                        <span class="text-xs font-semibold text-brand-steel uppercase tracking-widest">Manufacturing, LLC</span>
+                    </div>
+                </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Home</a>
+                    <a href="defense.html" class="text-brand-accent font-bold transition-colors border-b-2 border-brand-accent pb-1">Defense & NDAA</a>
+                    <a href="careers.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Careers</a>
+                    <a href="index.html#contact" class="bg-brand-navy hover:bg-slate-800 text-white px-5 py-2.5 rounded-md font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-sm"></i> Submit RFI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-24 border-b-4 border-brand-accent overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-600 text-slate-300 px-5 py-2 rounded-full text-sm font-bold tracking-widest mb-8 uppercase backdrop-blur-sm shadow-lg">
+                <i class="fa-solid fa-lock text-brand-accent"></i> CAGE Code: Pending • WOSB Affiliate
+            </div>
+            <h2 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight max-w-4xl mx-auto">
+                Defense & NDAA Compliant <span class="text-brand-accent">Manufacturing</span>
+            </h2>
+            <p class="text-lg sm:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+                Mission-ready polymer components engineered for allied capabilities. Synergy Manufacturing provides secure, scalable, and fully domestic injection molding solutions for DoD and Prime Contractors.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#compliance" class="bg-brand-accent hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-clipboard-check"></i> View Compliance Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Defense Capabilities Grid -->
+    <section id="compliance" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-extrabold text-brand-navy uppercase tracking-wide">Tactical Manufacturing Readiness</h3>
+                <div class="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- ITAR -->
+                <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:border-brand-accent hover:shadow-md transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">ITAR Readiness</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Active registration pathway established for full compliance with the International Traffic in Arms Regulations. We ensure strict control of defense-related technical data.</p>
+                </div>
+                
+                <!-- Domestic Resin -->
+                <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:border-brand-accent hover:shadow-md transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-flag-usa"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">100% Domestic Resin</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Fully compliant with the Buy American Act (BAA). We source and utilize 100% domestic polymers, eliminating foreign supply chain vulnerabilities.</p>
+                </div>
+
+                <!-- ISO 9001 -->
+                <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:border-brand-accent hover:shadow-md transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">ISO 9001 Workflows</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Rigorous quality control systems embedded at every stage of production, guaranteeing strict adherence to defense-grade industrial tolerances.</p>
+                </div>
+
+                <!-- Press Capacity -->
+                <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:border-brand-accent hover:shadow-md transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">125 to 400-Ton Presses</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Scalable heavy industrial capacity capable of handling both micro-components for electronics and large-scale structural polymer parts for autonomous systems.</p>
+                </div>
+
+                <!-- Rapid Turnaround -->
+                <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:border-brand-accent hover:shadow-md transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Sub-2-Week Turnaround</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">We operate a 24/7 continuous production schedule. Our rapid tool setup and optimized floor logistics allow us to execute sub-2-week fulfillment for critical RFPs.</p>
+                </div>
+                
+                <!-- Security -->
+                <div class="bg-brand-navy rounded-xl p-8 border border-slate-800 shadow-lg group relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 opacity-10 text-9xl">
+                        <i class="fa-solid fa-file-shield"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-brand-accent text-white rounded-lg flex items-center justify-center text-2xl mb-6">
+                            <i class="fa-solid fa-folder-closed"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Secure Contracting</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">Procurement, bidding, and compliance are meticulously managed by Meg and Greg Group LLC, ensuring all defense communications and contracting mechanisms are securely handled.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- sUAS specific section -->
+    <section class="blueprint-bg text-white py-24 border-t border-b border-brand-accent/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2">
+                <div class="text-brand-accent font-bold tracking-widest uppercase text-sm mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-crosshairs"></i> Autonomous Systems Support
+                </div>
+                <h3 class="text-3xl sm:text-4xl font-extrabold mb-6">Mission-Ready sUAS Components</h3>
+                <p class="text-slate-300 text-lg mb-6 leading-relaxed">
+                    The modern battlefield requires rapid deployment of Small Unmanned Aircraft Systems (sUAS). Synergy Manufacturing provides the critical, high-volume injection molding capacity needed to scale drone production outside of foreign supply chains.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-brand-accent mt-1 mr-3"></i>
+                        <span class="text-slate-200"><strong>NDAA Compliant:</strong> Guaranteed absence of restricted foreign materials, fully aligning with National Defense Authorization Act requirements for DoD procurement.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-brand-accent mt-1 mr-3"></i>
+                        <span class="text-slate-200"><strong>High-Durability Polymers:</strong> Molding of advanced impact-resistant and lightweight thermoplastics optimized for flight hardware and chassis assemblies.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check text-brand-accent mt-1 mr-3"></i>
+                        <span class="text-slate-200"><strong>Scalable for Primes:</strong> Built to support Tier 1 primes transitioning from prototype runs to full-scale, tens-of-thousands-unit deployments.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="lg:w-1/2 relative w-full h-96 bg-brand-dark rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex items-center justify-center p-8">
+                <!-- Abstract visual representing a drone/sUAS component wireframe -->
+                <div class="absolute inset-0 opacity-20" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #2563eb 10px, #2563eb 11px);"></div>
+                <div class="relative z-10 text-center">
+                    <i class="fa-solid fa-plane-up text-7xl text-brand-accent mb-6 animate-pulse"></i>
+                    <div class="w-full h-px bg-slate-600 my-4 relative">
+                        <div class="absolute top-0 left-1/4 w-1/2 h-full bg-brand-accent shadow-[0_0_15px_#2563eb]"></div>
+                    </div>
+                    <p class="font-mono text-sm text-brand-steel mt-4 uppercase tracking-widest">sUAS Chassis Molding Profile / / Active</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-brand-navy mb-6">Initiate Supply Chain Integration</h2>
+            <p class="text-lg text-slate-600 mb-10">
+                Whether you are a DoD contracting officer mapping regional manufacturing bandwidth or a Prime Contractor securing domestic suppliers for an upcoming prototype award, we are ready to build.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="index.html#contact" class="bg-brand-navy hover:bg-slate-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-signature"></i> Submit an RFI
+                </a>
+                <a href="mailto:tracistarr@synergymanufacturing.us" class="bg-slate-100 hover:bg-slate-200 text-brand-navy border border-slate-300 px-8 py-4 rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-envelope"></i> Contact Direct
+                </a>
+            </div>
+            <p class="mt-8 text-sm font-semibold text-slate-500 uppercase tracking-widest">
+                Procurement Managed by <span class="text-brand-accent">Meg and Greg Group LLC</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-industry text-2xl text-brand-accent"></i>
+                <span class="text-xl font-bold text-white tracking-tight">SYNERGY</span>
+            </div>
+            <p class="text-sm text-center md:text-left">
+                &copy; 2026 Synergy Manufacturing, LLC. All rights reserved. <br class="md:hidden"> 
+                <span class="hidden md:inline">|</span> CAGE: Pending | WOSB Affiliate
+            </p>
+            <div class="text-sm flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-brand-accent"></i> Procurement & Digital Portal Managed by <strong class="text-white">Meg and Greg Group LLC</strong>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
