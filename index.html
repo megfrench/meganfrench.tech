@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careers | Synergy Manufacturing, LLC</title>
+    <title>Synergy Manufacturing, LLC | Tier 1 Defense & Commercial Injection Molding</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -31,18 +30,18 @@
         }
     </script>
     <style>
-        /* Industrial background overlay for hero section */
+        /* Custom styles for background overlay to give an industrial feel */
         .hero-bg {
             background-color: #0f172a;
-            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             position: relative;
         }
         .hero-bg::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            opacity: 0.15;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
             pointer-events: none;
         }
     </style>
@@ -64,180 +63,251 @@
                     </div>
                 </div>
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="index.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Main Site</a>
-                    <span class="text-slate-300">|</span>
-                    <a href="#open-roles" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Open Roles</a>
-                    <a href="#apply" class="bg-brand-navy hover:bg-slate-800 text-white px-5 py-2.5 rounded-md font-semibold transition-all shadow-md hover:shadow-lg">Apply Now</a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="capabilities.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Capabilities</a>
+                    <a href="#defense" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Defense / NDAA</a>
+                    <a href="careers.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Careers</a>
+                    <a href="#contact" class="bg-brand-navy hover:bg-slate-800 text-white px-5 py-2.5 rounded-md font-semibold transition-all shadow-md hover:shadow-lg">Submit RFI</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-slate-600 hover:text-brand-navy focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white py-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-block bg-brand-accent/20 border border-brand-accent/50 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide mb-6 uppercase">
-                <i class="fa-solid fa-users-gear mr-2"></i> Now Hiring in Piketon, OH
+    <section class="hero-bg text-white py-24 sm:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-2/3">
+                <div class="inline-block bg-brand-accent/20 border border-brand-accent/50 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide mb-6 uppercase">
+                    <i class="fa-solid fa-shield-halved mr-2"></i> Proudly Manufactured in Ohio, USA
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Tier 1 Plastic Injection Molding & <span class="text-brand-accent">Defense Manufacturing</span>
+                </h2>
+                <p class="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
+                    Precision engineering, rapid scalability, and strict ITAR/NDAA compliance. We deliver high-volume commercial components and defense-ready sUAS hardware from start to finish.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-brand-accent hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2">
+                        Partner With Us <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#capabilities" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all flex items-center justify-center gap-2">
+                        View Capabilities
+                    </a>
+                </div>
             </div>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-                Join Our Team – <br><span class="text-brand-accent">2027 Production Ramp</span>
-            </h2>
-            <p class="text-lg sm:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Synergy Manufacturing is expanding our production shifts to support massive growth in Tier 1 commercial overflow and DoD defense component manufacturing. We need top-tier floor talent ready to build the future.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#open-roles" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-2">
-                    View Open Roles <i class="fa-solid fa-chevron-down"></i>
-                </a>
+            <!-- Trust Badges / Stats -->
+            <div class="lg:w-1/3 grid grid-cols-2 gap-4 w-full">
+                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
+                    <i class="fa-solid fa-certificate text-3xl text-brand-accent mb-3"></i>
+                    <h3 class="text-2xl font-bold">ISO 9001</h3>
+                    <p class="text-slate-400 text-sm">Certified Quality</p>
+                </div>
+                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
+                    <i class="fa-solid fa-industry text-3xl text-brand-accent mb-3"></i>
+                    <h3 class="text-2xl font-bold">400-Ton</h3>
+                    <p class="text-slate-400 text-sm">Max Press Capacity</p>
+                </div>
+                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
+                    <i class="fa-solid fa-flag-usa text-3xl text-brand-accent mb-3"></i>
+                    <h3 class="text-2xl font-bold">100%</h3>
+                    <p class="text-slate-400 text-sm">Domestic Resin</p>
+                </div>
+                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
+                    <i class="fa-solid fa-clock text-3xl text-brand-accent mb-3"></i>
+                    <h3 class="text-2xl font-bold">24/7</h3>
+                    <p class="text-slate-400 text-sm">Operation Scale</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Open Roles Section -->
-    <section id="open-roles" class="py-20 bg-white">
+    <!-- Core Capabilities -->
+    <section id="capabilities" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h3 class="text-3xl font-extrabold text-brand-navy">Current Factory Floor Openings</h3>
-                <p class="mt-4 text-slate-500">Cross-training provided. Competitive compensation. Direct impact.</p>
+                <h2 class="text-3xl font-extrabold text-brand-navy sm:text-4xl">Industrial Capabilities & Readiness</h2>
+                <p class="mt-4 text-xl text-slate-500 max-w-3xl mx-auto">Equipped to handle everything from commercial automotive overflow to specialized tactical defense components.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Role 1: Press Operator -->
-                <div class="bg-brand-light border border-slate-200 rounded-2xl p-8 flex flex-col hover:border-brand-accent hover:shadow-lg transition-all">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-blue-100 text-brand-accent rounded-lg flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-cogs"></i>
-                        </div>
-                        <span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Multiple Shifts</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Capability 1 -->
+                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cogs"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-brand-navy mb-2">Press Operator</h4>
-                    <p class="text-sm font-semibold text-brand-accent mb-4">125-400 Ton High-Volume</p>
-                    <p class="text-slate-600 mb-6 flex-grow text-sm leading-relaxed">
-                        Operate and monitor heavy industrial injection molding presses. Ensure continuous material flow, execute immediate press-side quality checks, and minimize downtime during high-volume commercial runs.
-                    </p>
-                    <a href="#apply" class="text-center w-full bg-white border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-bold py-3 rounded-lg transition-colors">Select Role</a>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">High-Volume Injection Molding</h3>
+                    <p class="text-slate-600 leading-relaxed">State-of-the-art presses ranging from 125 to 400 tons, optimized for strict industrial tolerances and rapid sub-2-week turnarounds.</p>
                 </div>
-
-                <!-- Role 2: QA Inspector -->
-                <div class="bg-brand-light border border-slate-200 rounded-2xl p-8 flex flex-col hover:border-brand-accent hover:shadow-lg transition-all">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-blue-100 text-brand-accent rounded-lg flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-microscope"></i>
-                        </div>
-                        <span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">1st Shift</span>
+                <!-- Capability 2 -->
+                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-crosshairs"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-brand-navy mb-2">Quality Control Inspector</h4>
-                    <p class="text-sm font-semibold text-brand-accent mb-4">ISO 9001 & Defense Tolerances</p>
-                    <p class="text-slate-600 mb-6 flex-grow text-sm leading-relaxed">
-                        Perform rigorous visual and dimensional inspections on finished components. Validate parts against strict DoD and automotive specifications. Identify defects and coordinate with floor supervisors to adjust tooling parameters.
-                    </p>
-                    <a href="#apply" class="text-center w-full bg-white border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-bold py-3 rounded-lg transition-colors">Select Role</a>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">sUAS & Defense Components</h3>
+                    <p class="text-slate-600 leading-relaxed">Specialized manufacturing of NDAA-compliant polymer components for autonomous systems and allied military capabilities.</p>
                 </div>
-
-                <!-- Role 3: Automation Tech -->
-                <div class="bg-brand-light border border-slate-200 rounded-2xl p-8 flex flex-col hover:border-brand-accent hover:shadow-lg transition-all">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-blue-100 text-brand-accent rounded-lg flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">2nd Shift</span>
+                <!-- Capability 3 -->
+                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clipboard-check"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-brand-navy mb-2">Automation Technician</h4>
-                    <p class="text-sm font-semibold text-brand-accent mb-4">Robotics & Maintenance</p>
-                    <p class="text-slate-600 mb-6 flex-grow text-sm leading-relaxed">
-                        Maintain and troubleshoot automated removal systems, conveyor lines, and auxiliary equipment. Work closely with tooling engineers to ensure seamless operation and maximum uptime across all active lines.
-                    </p>
-                    <a href="#apply" class="text-center w-full bg-white border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-bold py-3 rounded-lg transition-colors">Select Role</a>
+                    <h3 class="text-xl font-bold text-brand-navy mb-3">Strict Quality & Compliance</h3>
+                    <p class="text-slate-600 leading-relaxed">ISO 9001 certified workflows, comprehensive material staging, and an active ITAR registration pathway for secure federal contracting.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Application Form Section -->
-    <section id="apply" class="py-20 bg-slate-100 border-t border-slate-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white p-10 rounded-2xl shadow-xl border border-slate-200">
-                <div class="text-center mb-10">
-                    <div class="w-16 h-16 bg-brand-navy text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-md">
-                        <i class="fa-solid fa-file-signature"></i>
-                    </div>
-                    <h3 class="text-3xl font-extrabold text-brand-navy">Secure Application Portal</h3>
-                    <p class="text-slate-500 mt-2">Submit your details below to be considered for our 2027 production ramp.</p>
-                </div>
-
-                <!-- Formspree Integration -->
-                <form action="https://formspree.io/f/xdeerkpk" method="POST" class="space-y-6">
-                    <!-- Personal Info -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Full Legal Name</label>
-                            <input type="text" name="full_name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50" placeholder="John Doe">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
-                            <input type="tel" name="phone_number" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50" placeholder="(555) 123-4567">
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50" placeholder="johndoe@example.com">
-                    </div>
-
-                    <!-- Logistics (Dropdowns) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Position Applying For</label>
-                            <select name="position" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50 text-slate-700 cursor-pointer">
-                                <option value="" disabled selected>-- Select a Role --</option>
-                                <option value="Press Operator (125-400 Ton)">Press Operator (125-400 Ton)</option>
-                                <option value="Quality Control Inspector">Quality Control Inspector</option>
-                                <option value="Automation Technician">Automation Technician</option>
-                                <option value="Other / General Application">Other / General Application</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Shift Preference</label>
-                            <select name="shift_preference" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50 text-slate-700 cursor-pointer">
-                                <option value="" disabled selected>-- Select a Shift --</option>
-                                <option value="1st Shift (Day)">1st Shift (Day)</option>
-                                <option value="2nd Shift (Swing)">2nd Shift (Swing)</option>
-                                <option value="3rd Shift (Night)">3rd Shift (Night)</option>
-                                <option value="Any Available">Any Available</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Experience Text Area -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Experience & Background</label>
-                        <p class="text-xs text-slate-500 mb-2">Briefly describe your experience on a manufacturing floor, specific machinery/presses you've operated, or any relevant certifications.</p>
-                        <textarea name="experience" rows="5" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-slate-50" placeholder="I have 3 years of experience operating 400-ton presses..."></textarea>
-                    </div>
-
-                    <!-- Security / Submit -->
-                    <div class="pt-4">
-                        <button type="submit" class="w-full bg-brand-accent hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition-all shadow-lg flex items-center justify-center gap-2 text-lg">
-                            <i class="fa-solid fa-lock text-sm text-blue-200"></i> Submit Application Securely
-                        </button>
-                    </div>
-                </form>
+    <!-- Careers / Job Portal (The Pitch Piece) -->
+    <section id="careers" class="py-20 bg-brand-navy text-white relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="lg:w-1/2">
+                <span class="text-brand-accent font-bold tracking-wider uppercase text-sm mb-2 block">Synergy Career Portal</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">Build the Future of Manufacturing. Join Our 2027 Shifts.</h2>
+                <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                    We are rapidly expanding our floor operations to meet the growing demands of Tier 1 commercial and defense sectors. We are actively hiring experienced Press Operators, Automation Technicians, and QA Specialists for our upcoming production shifts in Piketon, OH.
+                </p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Competitive factory floor compensation</li>
+                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Cross-training on 125-400 ton presses</li>
+                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Direct role in defense supply chains</li>
+                </ul>
             </div>
             
-            <p class="text-center text-sm text-slate-500 mt-8 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-shield-halved"></i> Talent Sourcing & Portal Management provided by <strong class="text-brand-navy">Meg and Greg Group LLC</strong>
-            </p>
+            <div class="lg:w-5/12 w-full bg-white text-slate-800 p-8 rounded-2xl shadow-2xl">
+                <h3 class="text-2xl font-bold mb-2">Active Openings</h3>
+                <p class="text-slate-500 mb-6 text-sm">Select a role to begin your secure application.</p>
+                
+                <div class="space-y-4 mb-6">
+                    <div class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-brand-accent cursor-pointer transition-colors group">
+                        <div>
+                            <h4 class="font-bold text-brand-navy group-hover:text-brand-accent">Lead Press Operator</h4>
+                            <p class="text-xs text-slate-500">Full-Time • 2nd & 3rd Shift • Piketon, OH</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-brand-accent"></i>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-brand-accent cursor-pointer transition-colors group">
+                        <div>
+                            <h4 class="font-bold text-brand-navy group-hover:text-brand-accent">Quality Assurance Tech</h4>
+                            <p class="text-xs text-slate-500">Full-Time • 1st Shift • Piketon, OH</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-brand-accent"></i>
+                    </div>
+                </div>
+                
+                <button class="w-full bg-brand-accent hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors shadow-md flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-briefcase"></i> View All Openings & Apply
+                </button>
+                <p class="text-center text-xs text-slate-400 mt-4">Portal securely managed by Meg and Greg Group LLC</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & RFI Intake -->
+    <section id="contact" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Contact Info -->
+                <div class="lg:w-1/3">
+                    <h2 class="text-3xl font-extrabold text-brand-navy mb-4">Request for Information (RFI)</h2>
+                    <p class="text-slate-600 mb-8">Ready to secure your supply chain? Submit your project details, capability requirements, or federal compliance questions below.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-brand-navy">Headquarters</h4>
+                                <p class="text-slate-600">4243B US Hwy 23<br>Piketon, OH 45661</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
+                                <i class="fa-solid fa-phone text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-brand-navy">Phone</h4>
+                                <p class="text-slate-600">740-352-5933</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-brand-navy">Email</h4>
+                                <p class="text-slate-600">tracistarr@synergymanufacturing.us</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RFI Form -->
+                <div class="lg:w-2/3 bg-white p-8 rounded-2xl shadow-lg border border-slate-100">
+                    <form action="https://formspree.io/f/mbggvlyj" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+                                <input type="text" name="name" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Company / Agency</label>
+                                <input type="text" name="company" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="e.g. Anduril Industries" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                                <input type="email" name="email" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="john@example.com" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Inquiry Type</label>
+                                <select name="inquiry_type" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all text-slate-600">
+                                    <option value="Commercial Production Overflow">Commercial Production Overflow</option>
+                                    <option value="Defense/NDAA Sourcing">Defense/NDAA Sourcing</option>
+                                    <option value="General Capability RFI">General Capability RFI</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Project Details & Specifications</label>
+                            <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="Please provide details regarding volume, resin requirements, or ITAR compliance needs..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold py-4 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Submit RFI securely
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-navy text-slate-400 py-8 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-sm">
-                &copy; 2026 Synergy Manufacturing, LLC. All rights reserved. 
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-industry text-2xl text-brand-accent"></i>
+                <span class="text-xl font-bold text-white tracking-tight">SYNERGY</span>
+            </div>
+            <p class="text-sm text-center md:text-left">
+                &copy; 2026 Synergy Manufacturing, LLC. All rights reserved. <br class="md:hidden"> 
+                <span class="hidden md:inline">|</span> CAGE: Pending | WOSB Affiliate
             </p>
+            <div class="text-sm flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-brand-accent"></i> Procurement & Digital Portal Managed by <strong class="text-white">Meg and Greg Group LLC</strong>
+            </div>
         </div>
     </footer>
 
