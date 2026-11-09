@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capabilities | Synergy Manufacturing, LLC</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',    // slate-900
+                            steel: '#64748b',   // slate-500
+                            accent: '#2563eb',  // blue-600
+                            light: '#f8fafc',   // slate-50
+                            dark: '#020617',    // slate-950
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Industrial background overlay for hero section */
+        .hero-bg {
+            background-color: #0f172a;
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            position: relative;
+        }
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-brand-light text-slate-800 antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="bg-brand-navy shadow-md sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-brand-accent text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-inner group-hover:bg-blue-500 transition-colors">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white tracking-tight leading-none group-hover:text-brand-light transition-colors">SYNERGY</h1>
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Manufacturing, LLC</span>
+                    </div>
+                </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-slate-300 hover:text-white font-medium transition-colors">Home</a>
+                    <a href="capabilities.html" class="text-white font-bold transition-colors border-b-2 border-brand-accent pb-1">Capabilities</a>
+                    <a href="defense.html" class="text-slate-300 hover:text-white font-medium transition-colors">Defense & NDAA</a>
+                    <a href="careers.html" class="text-slate-300 hover:text-white font-medium transition-colors">Careers</a>
+                    <a href="index.html#contact" class="bg-brand-accent hover:bg-blue-500 text-white px-5 py-2.5 rounded-md font-semibold transition-all shadow-md flex items-center gap-2">
+                        Submit RFI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-20 border-b-4 border-brand-accent overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="md:w-2/3">
+                <div class="inline-flex items-center gap-2 bg-brand-accent/20 border border-brand-accent/50 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide mb-6 uppercase">
+                    <i class="fa-solid fa-gears"></i> Core Competencies
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Precision Manufacturing <br><span class="text-brand-accent">At Scale</span>
+                </h2>
+                <p class="text-lg text-slate-300 max-w-2xl leading-relaxed mb-8">
+                    Synergy Manufacturing bridges the gap between commercial volume and tactical precision. We operate a highly optimized, state-of-the-art facility equipped to handle stringent DoD requirements and heavy Tier-1 industrial overflow.
+                </p>
+                <a href="MGG_Capability_Statement.pdf" download class="inline-flex items-center gap-2 bg-white text-brand-navy hover:bg-slate-100 px-6 py-3 rounded-lg font-bold transition-colors shadow-lg">
+                    <i class="fa-solid fa-file-arrow-down text-brand-accent"></i> Download Capability Statement
+                </a>
+            </div>
+            <div class="md:w-1/3 hidden md:flex justify-end opacity-20">
+                <i class="fa-solid fa-cogs text-9xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- Left Column: Detailed Capabilities -->
+                <div class="w-full lg:w-2/3 space-y-12">
+                    
+                    <!-- Facility & Equipment -->
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-building text-brand-accent"></i> Facility & Equipment
+                        </h3>
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                            <p class="text-slate-600 mb-4 leading-relaxed">Our Piketon, OH facility is optimized for continuous, high-yield production. We maintain a versatile fleet of modern injection molding presses to accommodate rapid prototyping through high-volume commercial runs.</p>
+                            <ul class="space-y-4 mt-6">
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>Heavy Press Capacity:</strong> Six (6) state-of-the-art injection molding presses ranging from 125 to 400 tons.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>Continuous Operation:</strong> 24/7 facility capabilities built to handle immediate capacity backfill and overflow runs.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>Integrated Automation:</strong> Advanced robotics and conveyor systems for efficient part removal and high-speed cycle times.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quality & Compliance -->
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-clipboard-check text-brand-accent"></i> Quality & Compliance
+                        </h3>
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                            <p class="text-slate-600 mb-4 leading-relaxed">We strictly adhere to industry-leading quality management systems, ensuring every component meets exact dimensional tolerances and material specifications.</p>
+                            <ul class="space-y-4 mt-6">
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>ISO 9001 Certified:</strong> Standardized, repeatable, and auditable production workflows.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>100% Domestic Resin Sourcing:</strong> Fully compliant with Buy American Act (BAA) and NDAA material standards.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="mt-1 bg-blue-100 text-brand-accent rounded-full p-1 mr-3 flex-shrink-0">
+                                        <i class="fa-solid fa-check text-xs w-3 h-3 flex items-center justify-center"></i>
+                                    </div>
+                                    <span class="text-slate-700"><strong>ITAR Registration Pathway:</strong> Active protocols in place for handling defense-related technical data securely.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Core Competencies Grid -->
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-layer-group text-brand-accent"></i> Core Competencies
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Card 1 -->
+                            <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl hover:border-brand-accent hover:shadow-md transition-all">
+                                <i class="fa-solid fa-crosshairs text-2xl text-brand-accent mb-3"></i>
+                                <h4 class="font-bold text-brand-navy mb-2">Defense & sUAS Components</h4>
+                                <p class="text-sm text-slate-600">High-durability polymer hardware and structural chassis components engineered for unmanned systems and tactical deployment.</p>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl hover:border-brand-accent hover:shadow-md transition-all">
+                                <i class="fa-solid fa-truck-ramp-box text-2xl text-brand-accent mb-3"></i>
+                                <h4 class="font-bold text-brand-navy mb-2">Tier-1 Commercial Backfill</h4>
+                                <p class="text-sm text-slate-600">Immediate, scalable production runs to alleviate capacity bottlenecks for automotive and industrial prime suppliers.</p>
+                            </div>
+                            <!-- Card 3 -->
+                            <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl hover:border-brand-accent hover:shadow-md transition-all">
+                                <i class="fa-solid fa-stopwatch text-2xl text-brand-accent mb-3"></i>
+                                <h4 class="font-bold text-brand-navy mb-2">Rapid Tooling & Setup</h4>
+                                <p class="text-sm text-slate-600">Sub-2-week turnaround capabilities from die integration to first-article inspection and full-volume press operation.</p>
+                            </div>
+                            <!-- Card 4 -->
+                            <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl hover:border-brand-accent hover:shadow-md transition-all">
+                                <i class="fa-solid fa-file-invoice-dollar text-2xl text-brand-accent mb-3"></i>
+                                <h4 class="font-bold text-brand-navy mb-2">Micro-Purchase Fulfillment</h4>
+                                <p class="text-sm text-slate-600">Streamlined quoting and fulfillment for state, local, and federal agencies operating under standard acquisition thresholds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Sidebar -->
+                <div class="w-full lg:w-1/3 space-y-8">
+                    
+                    <!-- Capability Statement Download Card -->
+                    <div class="bg-brand-navy rounded-2xl p-8 text-white shadow-xl relative overflow-hidden border border-slate-800">
+                        <div class="absolute -right-4 -top-4 opacity-10 text-8xl text-brand-accent">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="text-xl font-bold mb-2">Official Capability Statement</h4>
+                            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Download our comprehensive 1-page overview containing NAICS codes, equipment lists, and past performance history.</p>
+                            <a href="MGG_Capability_Statement.pdf" download class="w-full bg-brand-accent hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> MGG_Capability_Statement.pdf
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Teaming Partner Card (MGG Focus) -->
+                    <div class="bg-white rounded-2xl p-8 border-2 border-brand-accent shadow-lg relative">
+                        <div class="absolute top-0 right-0 bg-brand-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
+                            Procurement Partner
+                        </div>
+                        <h4 class="text-lg font-bold text-brand-navy mb-1 mt-2">Meg and Greg Group LLC</h4>
+                        <p class="text-sm font-semibold text-brand-accent mb-4">WOSB Affiliate & Defense Sourcing Arm</p>
+                        
+                        <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+                            All state, federal, and defense contracting, including RFI/RFP management, is exclusively facilitated by our strategic teaming partner.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center text-sm">
+                                <i class="fa-solid fa-hashtag w-5 text-slate-400"></i>
+                                <span class="font-mono font-semibold text-slate-700 ml-2">CAGE: 23WQ7</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa-solid fa-id-card w-5 text-slate-400"></i>
+                                <span class="font-mono font-semibold text-slate-700 ml-2">UEI: NHRHWGBQ2MV3</span>
+                            </div>
+                        </div>
+
+                        <a href="mailto:business@meganfrench.tech" class="w-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-brand-navy font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-envelope text-brand-accent"></i> business@meganfrench.tech
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col md:flex-row items-center gap-8 text-sm">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-industry text-2xl text-brand-accent"></i>
+                    <span class="text-xl font-bold text-white tracking-tight">SYNERGY</span>
+                </div>
+                <div class="hidden md:block h-10 w-px bg-slate-700"></div>
+                <div class="text-center md:text-left">
+                    <p class="font-semibold text-white">Headquarters</p>
+                    <p>4243B US Hwy 23, Piketon, OH 45661</p>
+                </div>
+                <div class="hidden lg:block h-10 w-px bg-slate-700"></div>
+                <div class="text-center md:text-left">
+                    <p class="font-semibold text-white">Direct Contact</p>
+                    <p>tracistarr@synergymanufacturing.us | 740-352-5933</p>
+                </div>
+            </div>
+            
+            <div class="text-sm flex flex-col items-center md:items-end gap-1">
+                <p>&copy; 2026 Synergy Manufacturing, LLC.</p>
+                <div class="flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-shield-halved text-brand-accent"></i> 
+                    <span>Managed by <strong class="text-white">Meg and Greg Group LLC</strong></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
