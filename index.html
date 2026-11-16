@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> MEG AND GREG GROUP, LLC | meganfrench.tech </title>
+    <meta name="description" content="Megan French - Procurement Director, Federal Contract Broker & Business Development Strategist. Helping commercial companies win high-value contracts and build modern digital infrastructure.">
+    <title>meganfrench.tech | Procurement, Federal Contract Brokerage &amp; Digital Infrastructure</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons (Matching your template) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script>
         tailwind.config = {
             theme: {
@@ -18,276 +25,476 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        brand: {
-                            navy: '#0f172a',    // slate-900
-                            steel: '#64748b',   // slate-500
-                            accent: '#2563eb',  // blue-600
-                            light: '#f8fafc',   // slate-50
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                        },
+                        accent: {
+                            500: '#10b981',
+                        }
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(12px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Custom styles for background overlay to give an industrial feel */
-        .hero-bg {
-            background-color: #0f172a;
-            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            position: relative;
+        /* App-like mobile smoothness & safe-area support */
+        html, body {
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
-        .hero-bg::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.1;
-            pointer-events: none;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Hide scrollbars on horizontal mobile swipe strips */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
-<body class="font-sans bg-brand-light text-slate-800 antialiased selection:bg-brand-accent selection:text-white">
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-primary-500 selection:text-white pb-20 md:pb-0">
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-brand-accent text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-inner">
-                        <i class="fa-solid fa-industry"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-extrabold text-brand-navy tracking-tight leading-none">SYNERGY</h1>
-                        <span class="text-xs font-semibold text-brand-steel uppercase tracking-widest">Manufacturing, LLC</span>
-                    </div>
-                </div>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="https://megandgreggroup.com" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Meg and Greg Group </a>
-                    <a href="blog.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Blog</a>
-                    <a href="careers.html" class="text-slate-600 hover:text-brand-accent font-medium transition-colors">Careers</a>
-                    <a href="#contact" class="bg-brand-navy hover:bg-slate-800 text-white px-5 py-2.5 rounded-md font-semibold transition-all shadow-md hover:shadow-lg">Submit RFI</a>
-                </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-slate-600 hover:text-brand-navy focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
+    <!-- Custom Toast Notification -->
+    <div id="toast-container" class="fixed top-20 md:top-auto md:bottom-5 right-4 left-4 md:left-auto z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top App Bar / Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-200 bg-white/95 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
+            <a href="#hero" class="text-xl md:text-2xl font-extrabold tracking-tight text-slate-900">
+                meganfrench<span class="text-primary-500">.tech</span>
+            </a>
+
+            <!-- Mobile Direct Action Pill -->
+            <a href="#contact" class="md:hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-primary-500 active:bg-primary-600 text-white text-xs font-bold shadow-sm">
+                <span>Submit Opportunity</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <li><a href="#expertise" class="hover:text-primary-600 transition-colors">Capabilities</a></li>
+                <li><a href="#process" class="hover:text-primary-600 transition-colors">How It Works</a></li>
+                <li><a href="#engagement" class="hover:text-primary-600 transition-colors">Engagement</a></li>
+                <li><a href="#about" class="hover:text-primary-600 transition-colors">About</a></li>
+                <li>
+                    <a href="#contact" class="px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-all shadow-sm">
+                        Discuss a Contract
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-bg text-white py-24 sm:py-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-12">
-            <div class="lg:w-2/3">
-                <div class="inline-block bg-brand-accent/20 border border-brand-accent/50 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide mb-6 uppercase">
-                    <i class="fa-solid fa-shield-halved mr-2"></i> Proudly Manufactured in Ohio, USA
+    <!-- Mobile App Bottom Navigation Bar -->
+    <nav aria-label="Mobile App Navigation" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1.5 shadow-[0_-4px_20px_rgba(15,23,42,0.06)]">
+        <div class="grid grid-cols-4 gap-1 text-center">
+            <a href="#expertise" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
+                <i class="fas fa-briefcase text-base mb-0.5"></i>
+                <span class="text-[11px] font-semibold">Services</span>
+            </a>
+            <a href="#process" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
+                <i class="fas fa-route text-base mb-0.5"></i>
+                <span class="text-[11px] font-semibold">Process</span>
+            </a>
+            <a href="#engagement" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
+                <i class="fas fa-layer-group text-base mb-0.5"></i>
+                <span class="text-[11px] font-semibold">Models</span>
+            </a>
+            <a href="#contact" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-primary-600 bg-primary-50/70 active:bg-primary-100 transition-colors">
+                <i class="fas fa-paper-plane text-base mb-0.5"></i>
+                <span class="text-[11px] font-bold">Inquire</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Clean, Typography-Driven, Zero Decorative Clutter) -->
+    <section id="hero" class="pt-24 pb-14 md:pt-36 md:pb-24 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-3xl space-y-5 md:space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary-50 text-primary-700 border border-primary-100">
+                    <span class="w-2 h-2 rounded-full bg-primary-500"></span>
+                    Procurement Director &bull; Contract Broker &bull; Business Development
                 </div>
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-                    Tier 1 Plastic Injection Molding & <span class="text-brand-accent">Defense Manufacturing</span>
-                </h2>
-                <p class="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
-                    Precision engineering, rapid scalability, and strict ITAR/NDAA compliance. We deliver high-volume commercial components and defense-ready sUAS hardware from start to finish.
+
+                <h1 class="text-3xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight text-slate-900 leading-[1.14]">
+                    Win High-Value Contracts &amp; Modernize Your Digital Infrastructure to Scale.
+                </h1>
+
+                <p class="text-base sm:text-xl text-slate-600 leading-relaxed">
+                    I partner with CEOs, VPs of commercial manufacturing, facilities leaders, and founders to broker federal and prime contracts, drive strategic business development, and architect the digital systems required to launch or modernize operations.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#contact" class="bg-brand-accent hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2">
-                        Partner With Us <i class="fa-solid fa-arrow-right"></i>
+
+                <!-- App-style Primary & Secondary Touch Buttons -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                    <a href="#contact" class="text-center px-7 py-4 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-lg shadow-primary-500/20">
+                        Start a Conversation
                     </a>
-                    <a href="#capabilities" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all flex items-center justify-center gap-2">
-                        View Capabilities
+                    <a href="#engagement" class="text-center px-7 py-4 rounded-2xl bg-white hover:bg-slate-50 active:scale-[0.99] text-slate-800 font-semibold text-base border border-slate-200 transition-all">
+                        Explore Advisory &amp; Build Models
                     </a>
                 </div>
-            </div>
-            <!-- Trust Badges / Stats -->
-            <div class="lg:w-1/3 grid grid-cols-2 gap-4 w-full">
-                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
-                    <i class="fa-solid fa-certificate text-3xl text-brand-accent mb-3"></i>
-                    <h3 class="text-2xl font-bold">ISO 9001</h3>
-                    <p class="text-slate-400 text-sm">Certified Quality</p>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
-                    <i class="fa-solid fa-industry text-3xl text-brand-accent mb-3"></i>
-                    <h3 class="text-2xl font-bold">400-Ton</h3>
-                    <p class="text-slate-400 text-sm">Max Press Capacity</p>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
-                    <i class="fa-solid fa-flag-usa text-3xl text-brand-accent mb-3"></i>
-                    <h3 class="text-2xl font-bold">100%</h3>
-                    <p class="text-slate-400 text-sm">Domestic Resin</p>
-                </div>
-                <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-xl text-center">
-                    <i class="fa-solid fa-clock text-3xl text-brand-accent mb-3"></i>
-                    <h3 class="text-2xl font-bold">24/7</h3>
-                    <p class="text-slate-400 text-sm">Operation Scale</p>
+
+                <!-- Horizontal Swipeable Sector Chips on Mobile -->
+                <div class="pt-5 border-t border-slate-200/70">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Core Pillars &amp; Focus Areas</p>
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Federal &amp; Prime Contract Brokerage</span>
+                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Strategic Business Development</span>
+                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Digital Infrastructure &amp; Modernization</span>
+                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Aerospace, Manufacturing &amp; Facilities</span>
+                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">New Venture Launch Systems</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Core Capabilities -->
-    <section id="capabilities" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-brand-navy sm:text-4xl">Industrial Capabilities & Readiness</h2>
-                <p class="mt-4 text-xl text-slate-500 max-w-3xl mx-auto">Equipped to handle everything from commercial automotive overflow to specialized tactical defense components.</p>
+    <!-- Core Capabilities Section -->
+    <section id="expertise" class="py-14 md:py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-2xl mb-10 md:mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">What I Do</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Contract Capture, Growth Strategy &amp; Modern Systems</h2>
+                <p class="text-slate-600 text-base sm:text-lg">Whether you are an established operator competing for prime awards or launching a new enterprise, I build the commercial pipeline and technical backbone you need to win.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Capability 1 -->
-                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-cogs"></i>
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-file-signature"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">High-Volume Injection Molding</h3>
-                    <p class="text-slate-600 leading-relaxed">State-of-the-art presses ranging from 125 to 400 tons, optimized for strict industrial tolerances and rapid sub-2-week turnarounds.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">RFI, RFP &amp; Sources Sought Capture</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Positioning your company early during market research (RFIs) and managing compliant, high-scoring RFP/RFQ bid submissions.</p>
                 </div>
+
                 <!-- Capability 2 -->
-                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-crosshairs"></i>
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-handshake"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">sUAS & Defense Components</h3>
-                    <p class="text-slate-600 leading-relaxed">Specialized manufacturing of NDAA-compliant polymer components for autonomous systems and allied military capabilities.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Prime &amp; Federal Contract Brokerage</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Connecting vetted manufacturers, aerospace component suppliers, and facilities contractors directly with defense primes and agency buyers.</p>
                 </div>
+
                 <!-- Capability 3 -->
-                <div class="bg-brand-light rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-                    <div class="w-14 h-14 bg-blue-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-clipboard-check"></i>
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-3">Strict Quality & Compliance</h3>
-                    <p class="text-slate-600 leading-relaxed">ISO 9001 certified workflows, comprehensive material staging, and an active ITAR registration pathway for secure federal contracting.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">B2B &amp; GovCon Business Development</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Building repeatable revenue pipelines, executive partner outreach, and strategic teaming agreements across commercial and public-sector markets.</p>
+                </div>
+
+                <!-- Capability 4 -->
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Digital Infrastructure &amp; Modernization</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Upgrading legacy businesses with modern web presence, client/vendor portals, CRM workflows, and automated operational tooling that pass prime due diligence.</p>
+                </div>
+
+                <!-- Capability 5 -->
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">New Venture &amp; Spin-Off Launch Architecture</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Taking new companies or specialized divisions from zero to market-ready—standing up brand identity, compliance registrations, digital infrastructure, and go-to-market systems.</p>
+                </div>
+
+                <!-- Capability 6 -->
+                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">FAR/DFARS &amp; Facilities Bid Governance</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Structuring competitive pricing, SLA frameworks, and federal flow-down compliance for multi-site facilities operations and precision manufacturing.</p>
                 </div>
             </div>
         </div>
     </section>
 
-  <!-- Careers / Job Portal (The Pitch Piece) -->
-    <section id="careers" class="py-20 bg-brand-navy text-white relative overflow-hidden">
-        <!-- Decorative background elements -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/20 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div class="lg:w-1/2">
-                <span class="text-brand-accent font-bold tracking-wider uppercase text-sm mb-2 block">Synergy Career Portal</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">Build the Future of Manufacturing. Join Our 2027 Shifts.</h2>
-                <p class="text-slate-300 text-lg mb-8 leading-relaxed">
-                    We are rapidly expanding our floor operations to meet the growing demands of Tier 1 commercial and defense sectors. We are actively hiring experienced Press Operators, Automation Technicians, and QA Specialists for our upcoming production shifts in Piketon, OH.
-                </p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Competitive factory floor compensation</li>
-                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Cross-training on 125-400 ton presses</li>
-                    <li class="flex items-center text-slate-200"><i class="fa-solid fa-check-circle text-brand-accent mr-3"></i> Direct role in defense supply chains</li>
-                </ul>
+    <!-- How It Works / Executive Process (Replaces bulky chart/SVG section) -->
+    <section id="process" class="py-14 md:py-24 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-2xl mb-10 md:mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Execution Framework</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Modernize Your Foundation, Then Capture Market Share</h2>
+                <p class="text-slate-600 text-base sm:text-lg">Prime contractors and enterprise buyers evaluate your digital credibility alongside your operational capacity. I align both.</p>
             </div>
-            
-            <div class="lg:w-5/12 w-full bg-white text-slate-800 p-8 rounded-2xl shadow-2xl">
-                <h3 class="text-2xl font-bold mb-2">Active Openings</h3>
-                <p class="text-slate-500 mb-6 text-sm">Select a role to begin your secure application.</p>
-                
-                <div class="space-y-4 mb-6">
-                    <a href="careers.html" class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-brand-accent cursor-pointer transition-colors group block">
-                        <div>
-                            <h4 class="font-bold text-brand-navy group-hover:text-brand-accent">Lead Press Operator</h4>
-                            <p class="text-xs text-slate-500">Full-Time • 2nd & 3rd Shift • Piketon, OH</p>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-brand-accent"></i>
-                    </a>
-                    <a href="careers.html" class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-brand-accent cursor-pointer transition-colors group block">
-                        <div>
-                            <h4 class="font-bold text-brand-navy group-hover:text-brand-accent">Quality Assurance Tech</h4>
-                            <p class="text-xs text-slate-500">Full-Time • 1st Shift • Piketon, OH</p>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-brand-accent"></i>
-                    </a>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
+                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 01</span>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Infrastructure &amp; Readiness Audit</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">We modernize outdated web/CRM systems (or launch your new entity's digital stack) and align SAM.gov, NAICS codes, and executive capability positioning.</p>
                 </div>
-                
-                <a href="careers.html" class="w-full bg-brand-accent hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors shadow-md flex justify-center items-center gap-2">
-                    <i class="fa-solid fa-briefcase"></i> View All Openings & Apply
-                </a>
-                <p class="text-center text-xs text-slate-400 mt-4">Portal securely managed by Meg and Greg Group LLC</p>
+
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
+                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 02</span>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Business Development &amp; Bid Capture</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">I drive targeted B2B and prime buyer outreach, qualify high-fit RFIs/RFPs, and package compliant technical and pricing proposals.</p>
+                </div>
+
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
+                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 03</span>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Contract Award &amp; Scalable Delivery</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">From negotiation and vendor portal onboarding to automated operational workflows, I ensure your business can execute and scale repeat wins.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    
-    <!-- Contact & RFI Intake -->
-    <section id="contact" class="py-20 bg-brand-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-16">
-                <!-- Contact Info -->
-                <div class="lg:w-1/3">
-                    <h2 class="text-3xl font-extrabold text-brand-navy mb-4">Request for Information (RFI)</h2>
-                    <p class="text-slate-600 mb-8">Ready to secure your supply chain? Submit your project details, capability requirements, or federal compliance questions below.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
-                                <i class="fa-solid fa-location-dot text-xl"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-brand-navy">Headquarters</h4>
-                                <p class="text-slate-600">4243B US Hwy 23<br>Piketon, OH 45661</p>
-                            </div>
+    <!-- Engagement Models Section -->
+    <section id="engagement" class="py-14 md:py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-2xl mb-8 md:mb-12">
+                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Engagement Options</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Ways to Work Together</h2>
+                <p class="text-slate-600 text-base sm:text-lg mb-6">Choose deal-by-deal solicitation capture or ongoing fractional procurement leadership.</p>
+
+                <!-- App-Style Segmented Control -->
+                <div class="grid grid-cols-2 sm:inline-flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto">
+                    <button type="button" id="label-sprint" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition-all">
+                        Per-Solicitation / Deal
+                    </button>
+                    <button type="button" id="label-retainer" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                        Ongoing Retainer
+                    </button>
+                    <input type="checkbox" id="engagement-switch" class="sr-only">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+                <!-- Tier 1 -->
+                <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900">Digital Infrastructure &amp; Launch</h4>
+                        <div class="my-3">
+                            <span class="text-2xl font-extrabold text-slate-900 mode-title">Modernize or Launch</span>
                         </div>
-                        <div class="flex items-start">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
-                                <i class="fa-solid fa-phone text-xl"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-brand-navy">Phone</h4>
-                                <p class="text-slate-600">740-352-5933</p>
-                            </div>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">For legacy businesses updating systems or founders launching new ventures.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Modern web architecture &amp; executive positioning</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>CRM, intake, &amp; workflow automation setup</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>SAM.gov, CAGE, &amp; Capability Statement build</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Prime vendor portal &amp; due-diligence readiness</span></li>
+                        </ul>
+                    </div>
+                    <a href="#contact" onclick="selectInquiry('Digital Infrastructure & Business Modernization')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
+                        Scope Infrastructure Build
+                    </a>
+                </div>
+
+                <!-- Tier 2 (Primary) -->
+                <div class="rounded-2xl bg-white border-2 border-primary-500 p-6 sm:p-7 flex flex-col justify-between shadow-lg relative">
+                    <div class="inline-block self-start px-3 py-1 rounded-lg bg-primary-50 text-primary-700 text-[11px] font-extrabold uppercase tracking-wider mb-3">
+                        Most Requested by CEOs &amp; VPs
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900">Contract Brokerage &amp; BizDev</h4>
+                        <div class="my-3">
+                            <span class="text-2xl font-extrabold text-slate-900 mode-title">Pipeline &amp; RFI / RFP Capture</span>
                         </div>
-                        <div class="flex items-start">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-accent shadow-sm border border-slate-100 flex-shrink-0">
-                                <i class="fa-solid fa-envelope text-xl"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="text-lg font-bold text-brand-navy">Email</h4>
-                                <p class="text-slate-600">tracistarr@synergymanufacturing.us</p>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">Full-lifecycle solicitation sourcing, business development, and bid capture.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Targeted RFI, RFP &amp; RFQ opportunity sourcing</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Direct B2B &amp; prime buyer business development</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Complete proposal &amp; pricing package assembly</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Contracting officer &amp; prime liaison</span></li>
+                        </ul>
+                    </div>
+                    <a href="#contact" onclick="selectInquiry('Federal Contract Brokerage & Business Development')" class="block text-center py-3.5 px-5 rounded-xl bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white font-bold text-sm transition-colors shadow-sm">
+                        Submit an Opportunity
+                    </a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900">Fractional Procurement &amp; Growth</h4>
+                        <div class="my-3">
+                            <span class="text-2xl font-extrabold text-slate-900 mode-title">Executive Leadership</span>
+                        </div>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">Ongoing leadership across procurement, vendor strategy, and digital ops.</p>
+                        <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Go/No-Go bid qualification &amp; growth roadmap</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Subcontractor &amp; material supplier sourcing</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Continuous digital &amp; operational modernization</span></li>
+                            <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Direct support for CEOs, VPs &amp; Operations</span></li>
+                        </ul>
+                    </div>
+                    <a href="#contact" onclick="selectInquiry('Fractional Procurement & Growth Leadership')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
+                        Schedule Executive Call
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Endorsements Section (Clean Typography Cards — Zero Cartoon Avatars) -->
+    <section id="endorsements" class="py-14 md:py-24 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-2xl mb-10 md:mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Client Feedback</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">Trusted by Executives &amp; Operations Leaders</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
+                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                        "We had the shop capacity for defense and aerospace components but zero bandwidth to navigate federal RFIs. Megan stepped in, structured our response, and got us in front of prime buyers immediately."
+                    </p>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="font-bold text-slate-900 text-sm">VP of Manufacturing</p>
+                        <p class="text-xs text-slate-500">Precision Aerospace &amp; Defense Supplier</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
+                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                        "Her command of FAR requirements and competitive pricing helped us secure multi-year public-sector facilities contracts without adding full-time overhead to our management team."
+                    </p>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="font-bold text-slate-900 text-sm">Director of Facilities Operations</p>
+                        <p class="text-xs text-slate-500">Regional Commercial Maintenance Group</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
+                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
+                        "Megan overhauled our outdated digital infrastructure and built a real business development engine around it. We went from relying on word-of-mouth to winning institutional and prime contracts."
+                    </p>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="font-bold text-slate-900 text-sm">Chief Executive Officer</p>
+                        <p class="text-xs text-slate-500">Industrial Supply &amp; Logistics Firm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-14 md:py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary-600">About Megan French</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Procurement Strategy Meets Modern Business Architecture</h2>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Most capable commercial manufacturers, suppliers, and facilities operators miss out on lucrative federal and enterprise contracts—either because public-sector procurement is buried in compliance jargon, or because their digital presence and internal systems look stuck in 2008.
+                    </p>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        As a Procurement Director, Federal Contract Broker, and Business Development Strategist, I bridge both gaps. I modernize legacy operations (or build new ventures from the ground up), establish credible digital infrastructure, and drive direct contract capture from first RFI to award.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 grid grid-cols-1 gap-3.5">
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                        <h3 class="text-lg font-extrabold text-slate-900">Federal &amp; Prime Contract Capture</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Compliant RFI/RFP brokerage for manufacturing, aerospace, and facilities leaders.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                        <h3 class="text-lg font-extrabold text-slate-900">Digital Infrastructure &amp; Modernization</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Modern web platforms, automated workflows, and launch systems for new or legacy firms.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                        <h3 class="text-lg font-extrabold text-slate-900">Strategic Business Development</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Direct buyer outreach, teaming partnerships, and scalable revenue architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-14 md:py-24 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 bg-white">
+                <!-- Left Info Panel -->
+                <div class="lg:col-span-5 bg-slate-900 text-white p-7 sm:p-10 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <span class="inline-block text-xs font-bold uppercase tracking-wider text-primary-400">Direct Inquiry</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold leading-tight">Ready to Win More Contracts or Modernize Your Business?</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Whether you're responding to an active RFI/RFP, scaling commercial business development, modernizing legacy operations, or launching a new venture from scratch, send over your details.
+                        </p>
+
+                        <div class="space-y-3.5 pt-3 text-sm">
+                            <button type="button" onclick="copyEmail()" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 active:bg-slate-700 text-slate-200 transition-colors text-left">
+                                <i class="fas fa-envelope text-primary-400"></i>
+                                <span class="font-medium">hello@meganfrench.tech</span>
+                                <span class="ml-auto text-[11px] text-slate-400">Tap to copy</span>
+                            </button>
+                            <div class="flex items-center gap-3 px-3 py-2 text-slate-300">
+                                <i class="fas fa-map-marker-alt text-primary-400"></i>
+                                <span>United States • Nationwide Federal &amp; Prime Coverage</span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="flex items-center gap-3 pt-8">
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <button type="button" onclick="copyEmail()" aria-label="Copy Email" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center text-white transition-colors">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
-                
-                <!-- RFI Form -->
-                <div class="lg:w-2/3 bg-white p-8 rounded-2xl shadow-lg border border-slate-100">
-                    <form action="https://formspree.io/f/mbggvlyj" method="POST" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Right Contact Form -->
+                <div class="lg:col-span-7 p-7 sm:p-10">
+                    <form id="contactForm" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-                                <input type="text" name="name" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="John Doe" required>
+                                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Your Name &amp; Title</label>
+                                <input type="text" id="name" name="name" placeholder="Alex Mercer, VP Operations" required
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Company / Agency</label>
-                                <input type="text" name="company" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="e.g. Anduril Industries" required>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                                <input type="email" name="email" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="john@example.com" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Inquiry Type</label>
-                                <select name="inquiry_type" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all text-slate-600">
-                                    <option value="Commercial Production Overflow">Commercial Production Overflow</option>
-                                    <option value="Defense/NDAA Sourcing">Defense/NDAA Sourcing</option>
-                                    <option value="General Capability RFI">General Capability RFI</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label for="company" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Company Name</label>
+                                <input type="text" id="company" name="company" placeholder="Apex Precision Mfg / Facilities" required
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Project Details & Specifications</label>
-                            <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all" placeholder="Please provide details regarding volume, resin requirements, or ITAR compliance needs..." required></textarea>
+                            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Work Email</label>
+                            <input type="email" id="email" name="email" placeholder="alex@company.com" required
+                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
                         </div>
-                        <button type="submit" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold py-4 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Submit RFI securely
+                        <div>
+                            <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Project, Solicitation, or Modernization Goals</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell me about your company, an active RFI/RFP, business development goals, or digital infrastructure needs..." required
+                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 px-6 rounded-xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-md">
+                            Send Direct Inquiry
                         </button>
                     </form>
                 </div>
@@ -296,21 +503,162 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-industry text-2xl text-brand-accent"></i>
-                <span class="text-xl font-bold text-white tracking-tight">SYNERGY</span>
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+                <a href="#hero" class="text-xl font-extrabold tracking-tight text-white">
+                    meganfrench<span class="text-primary-500">.tech</span>
+                </a>
+                <p class="text-xs text-slate-400 mt-1">Procurement Director &bull; Federal Contract Broker &bull; Business Development &amp; Digital Infrastructure</p>
             </div>
-            <p class="text-sm text-center md:text-left">
-                &copy; 2026 MEG AND GREG GROUP, LLC. All rights reserved. <br class="md:hidden"> 
-                <span class="hidden md:inline">|</span> CAGE: 23Wq7 | WOSB | UEI: NHRHWGBQ2MV3
-            </p>
-            <div class="text-sm flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved text-brand-accent"></i> Procurement & Digital Portal Managed by <strong class="text-white">Meg and Greg Group LLC</strong>
+            <div class="flex flex-wrap items-center gap-6 text-xs font-medium">
+                <a href="#expertise" class="hover:text-white transition-colors">Capabilities</a>
+                <a href="#process" class="hover:text-white transition-colors">Process</a>
+                <a href="#engagement" class="hover:text-white transition-colors">Engagement</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
             </div>
+            <p class="text-xs text-slate-500">&copy; <span id="current-year"></span> Megan French. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Hidden textarea for iFrame-safe clipboard copy -->
+    <textarea id="clipboard-helper" class="sr-only" aria-hidden="true">hello@meganfrench.tech</textarea>
+
+    <!-- Consolidated JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            /* 1. Sticky Navbar Elevation */
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 12) {
+                    navbar.classList.add('shadow-sm');
+                } else {
+                    navbar.classList.remove('shadow-sm');
+                }
+            }, { passive: true });
+
+            /* 2. Scroll Animations */
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            /* 3. Engagement Mode Segmented Control */
+            const engagementSwitch = document.getElementById('engagement-switch');
+            const labelSprint = document.getElementById('label-sprint');
+            const labelRetainer = document.getElementById('label-retainer');
+            const modeTitles = document.querySelectorAll('.mode-title');
+            const modeSubs = document.querySelectorAll('.mode-sub');
+
+            const modes = {
+                sprint: [
+                    { title: 'Modernize or Launch', sub: 'Fixed-scope web architecture, CRM automation, and SAM.gov readiness.' },
+                    { title: 'Pipeline & RFI / RFP Capture', sub: 'Solicitation-specific brokerage, BizDev outreach, and bid submission.' },
+                    { title: 'Pre-Submission Red Team', sub: 'Targeted pricing, margin, and FAR/DFARS compliance review.' }
+                ],
+                retainer: [
+                    { title: 'Digital & Ops Evolution', sub: 'Ongoing systems modernization, portal updates, and compliance audits.' },
+                    { title: 'Dedicated Growth & Capture', sub: 'Monthly federal brokerage and B2B business development execution.' },
+                    { title: 'Fractional Director', sub: 'Executive procurement, growth, and digital infrastructure leadership.' }
+                ]
+            };
+
+            function updateEngagementMode(isRetainer) {
+                engagementSwitch.checked = isRetainer;
+                const activeData = isRetainer ? modes.retainer : modes.sprint;
+
+                if (isRetainer) {
+                    labelRetainer.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+                    labelRetainer.classList.remove('text-slate-600', 'font-semibold');
+                    labelSprint.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+                    labelSprint.classList.add('text-slate-600', 'font-semibold');
+                } else {
+                    labelSprint.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+                    labelSprint.classList.remove('text-slate-600', 'font-semibold');
+                    labelRetainer.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+                    labelRetainer.classList.add('text-slate-600', 'font-semibold');
+                }
+
+                modeTitles.forEach((el, idx) => { el.textContent = activeData[idx].title; });
+                modeSubs.forEach((el, idx) => { el.textContent = activeData[idx].sub; });
+            }
+
+            if (labelSprint && labelRetainer) {
+                labelSprint.addEventListener('click', () => updateEngagementMode(false));
+                labelRetainer.addEventListener('click', () => updateEngagementMode(true));
+            }
+
+            /* 4. Contact Form Submission */
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const btn = contactForm.querySelector('button');
+                    const originalText = btn.innerText;
+
+                    btn.innerText = 'Inquiry Received';
+                    btn.classList.remove('bg-primary-500', 'hover:bg-primary-600');
+                    btn.classList.add('bg-emerald-600');
+
+                    showToast('Thank you! Megan will review your inquiry and follow up shortly.');
+                    contactForm.reset();
+
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.remove('bg-emerald-600');
+                        btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
+                    }, 3000);
+                });
+            }
+        });
+
+        /* Toast Notification Helper */
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto flex items-center gap-2.5 px-4 py-3.5 rounded-2xl bg-slate-900 text-white text-sm font-medium shadow-xl border border-slate-700 transform transition-all duration-300 -translate-y-2 md:translate-y-4 opacity-0';
+            toast.innerHTML = `<i class="fas fa-check-circle text-emerald-400 shrink-0"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('-translate-y-2', 'md:translate-y-4', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('-translate-y-2', 'md:translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        /* Clipboard Copy Helper */
+        function copyEmail() {
+            const helper = document.getElementById('clipboard-helper');
+            helper.select();
+            helper.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Copied hello@meganfrench.tech to clipboard');
+            } catch (err) {
+                showToast('Email: hello@meganfrench.tech');
+            }
+        }
+
+        /* Pre-fill inquiry subject in message box */
+        function selectInquiry(topic) {
+            const msgBox = document.getElementById('message');
+            if (msgBox) {
+                msgBox.value = `Hi Megan, I'd like to discuss ${topic} for our company. `;
+                msgBox.focus();
+            }
+        }
+    </script>
 </body>
 </html>
