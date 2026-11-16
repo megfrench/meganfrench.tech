@@ -14,10 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome for Icons (Matching your template) -->
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
+        // Ensure page always opens cleanly at the top unless an explicit hash is targeted
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+
         tailwind.config = {
             theme: {
                 extend: {
@@ -35,15 +43,6 @@
                         accent: {
                             500: '#10b981',
                         }
-                    },
-                    animation: {
-                        'fade-up': 'fadeUp 0.5s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(12px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
                     }
                 }
             }
@@ -51,27 +50,30 @@
     </script>
 
     <style>
-        /* App-like mobile smoothness & safe-area support */
         html, body {
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Hide scrollbars on horizontal mobile swipe strips */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+        @keyframes sectionFocusPulse {
+            0% { box-shadow: inset 0 0 0 2px rgba(79, 70, 229, 0.35); background-color: rgba(238, 242, 255, 0.45); }
+            100% { box-shadow: inset 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .section-engaged {
+            animation: sectionFocusPulse 0.9s ease-out;
+        }
+        @keyframes stepSwap {
+            0% { opacity: 0; transform: translateX(8px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .step-animate {
+            animation: stepSwap 0.25s ease-out forwards;
         }
     </style>
 </head>
@@ -108,28 +110,35 @@
     </nav>
 
     <!-- Mobile App Bottom Navigation Bar -->
-    <nav aria-label="Mobile App Navigation" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1.5 shadow-[0_-4px_20px_rgba(15,23,42,0.06)]">
-        <div class="grid grid-cols-4 gap-1 text-center">
-            <a href="#expertise" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
-                <i class="fas fa-briefcase text-base mb-0.5"></i>
-                <span class="text-[11px] font-semibold">Services</span>
+    <nav id="mobile-bottom-nav" aria-label="Mobile App Navigation" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 pt-1.5 pb-2 shadow-[0_-6px_24px_rgba(15,23,42,0.08)]">
+        <div class="relative grid grid-cols-5 gap-1 text-center">
+            <!-- Animated Sliding Active Pill -->
+            <div id="mobile-nav-indicator" class="absolute top-0 bottom-0 left-0 w-1/5 rounded-xl bg-primary-50 border border-primary-200/80 transition-transform duration-300 ease-out pointer-events-none opacity-0"></div>
+
+            <a href="#expertise" data-nav-target="expertise" data-nav-index="0" class="mobile-nav-link relative z-10 flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 active:scale-90 transition-all duration-150">
+                <i class="fas fa-briefcase text-sm mb-0.5 transition-transform duration-200"></i>
+                <span class="text-[10px] font-bold tracking-tight">Services</span>
             </a>
-            <a href="#process" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
-                <i class="fas fa-route text-base mb-0.5"></i>
-                <span class="text-[11px] font-semibold">Process</span>
+            <a href="#process" data-nav-target="process" data-nav-index="1" class="mobile-nav-link relative z-10 flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 active:scale-90 transition-all duration-150">
+                <i class="fas fa-route text-sm mb-0.5 transition-transform duration-200"></i>
+                <span class="text-[10px] font-bold tracking-tight">Process</span>
             </a>
-            <a href="#engagement" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-600 active:bg-slate-100 active:text-primary-600 transition-colors">
-                <i class="fas fa-layer-group text-base mb-0.5"></i>
-                <span class="text-[11px] font-semibold">Models</span>
+            <a href="#engagement" data-nav-target="engagement" data-nav-index="2" class="mobile-nav-link relative z-10 flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 active:scale-90 transition-all duration-150">
+                <i class="fas fa-layer-group text-sm mb-0.5 transition-transform duration-200"></i>
+                <span class="text-[10px] font-bold tracking-tight">Models</span>
             </a>
-            <a href="#contact" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-primary-600 bg-primary-50/70 active:bg-primary-100 transition-colors">
-                <i class="fas fa-paper-plane text-base mb-0.5"></i>
-                <span class="text-[11px] font-bold">Inquire</span>
+            <a href="#about" data-nav-target="about" data-nav-index="3" class="mobile-nav-link relative z-10 flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 active:scale-90 transition-all duration-150">
+                <i class="fas fa-user-tie text-sm mb-0.5 transition-transform duration-200"></i>
+                <span class="text-[10px] font-bold tracking-tight">About</span>
+            </a>
+            <a href="#contact" data-nav-target="contact" data-nav-index="4" class="mobile-nav-link relative z-10 flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 active:scale-90 transition-all duration-150">
+                <i class="fas fa-paper-plane text-sm mb-0.5 transition-transform duration-200"></i>
+                <span class="text-[10px] font-bold tracking-tight">Inquire</span>
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section (Clean, Typography-Driven + Interactive Priority Selector) -->
+    <!-- Hero Section + Interactive Executive Priority Selector -->
     <section id="hero" class="pt-24 pb-10 md:pt-32 md:pb-16 bg-gradient-to-b from-slate-50 to-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="max-w-3xl space-y-5">
@@ -141,7 +150,6 @@
                     I partner with CEOs, VPs of commercial manufacturing, facilities leaders, and founders to broker federal and prime contracts, drive strategic business development, and architect the digital systems required to launch or modernize operations.
                 </p>
 
-                <!-- App-style Primary & Secondary Touch Buttons -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
                     <a href="#contact" onclick="selectInquiry('a Free Consultation')" class="text-center px-7 py-4 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-lg shadow-primary-500/20">
                         Schedule a Free Consultation
@@ -152,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- Interactive Executive Priority Explorer (Eliminates dead space & works like an app) -->
+            <!-- Interactive Executive Priority Explorer -->
             <div class="mt-8 md:mt-10 rounded-3xl bg-white border border-slate-200/90 shadow-lg shadow-slate-200/40 p-4 sm:p-6">
                 <div class="flex items-center justify-between gap-2 mb-3.5">
                     <p class="text-xs font-extrabold uppercase tracking-wider text-primary-600">
@@ -161,7 +169,6 @@
                     <span class="text-[11px] font-medium text-slate-400 hidden sm:inline">Tap a focus area to preview execution scope</span>
                 </div>
 
-                <!-- Mobile-friendly 2x2 grid on phones, 4-col bar on desktop -->
                 <div role="tablist" aria-label="Primary Business Objective" class="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
                     <button type="button" role="tab" aria-selected="true" data-pillar="contracts"
                         class="pillar-tab text-left p-3 rounded-2xl border-2 border-primary-500 bg-primary-50/60 text-slate-900 transition-all active:scale-[0.98]">
@@ -200,7 +207,6 @@
                     </button>
                 </div>
 
-                <!-- Dynamic Detail Drawer -->
                 <div id="pillar-panel" class="rounded-2xl bg-slate-50 border border-slate-200/70 p-4 sm:p-5 transition-all duration-200">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div class="space-y-1.5 max-w-2xl">
@@ -229,133 +235,351 @@
         </div>
     </section>
 
-    <!-- Core Capabilities Section -->
-    <section id="expertise" class="py-12 md:py-20">
+    <!-- What I Do / Capabilities (Horizontal Carousel on Mobile + Tap-to-Expand Accordions) -->
+    <section id="expertise" class="py-12 md:py-24 transition-colors">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="max-w-2xl mb-10 md:mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">What I Do</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Contract Capture, Growth Strategy &amp; Modern Systems</h2>
-                <p class="text-slate-600 text-base sm:text-lg">Whether you are an established operator competing for prime awards or launching a new enterprise, I build the commercial pipeline and technical backbone you need to win.</p>
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 md:mb-12">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary-600">What I Do</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-2">Contract Capture, Growth Strategy &amp; Modern Systems</h2>
+                    <p class="text-slate-600 text-sm sm:text-lg">Swipe through capabilities and tap any card to expand full scope and deliverables.</p>
+                </div>
+
+                <!-- Mobile Carousel Arrow Controls -->
+                <div class="flex md:hidden items-center justify-between bg-slate-100 px-3 py-2 rounded-xl border border-slate-200/70">
+                    <span class="text-xs font-bold text-slate-600"><i class="fas fa-arrows-left-right text-primary-500 mr-1.5"></i>Swipe or tap cards</span>
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" id="service-prev" aria-label="Previous Service" class="w-8 h-8 rounded-lg bg-white text-slate-700 border border-slate-200 flex items-center justify-center active:scale-95 shadow-xs">
+                            <i class="fas fa-chevron-left text-xs"></i>
+                        </button>
+                        <button type="button" id="service-next" aria-label="Next Service" class="w-8 h-8 rounded-lg bg-white text-slate-700 border border-slate-200 flex items-center justify-center active:scale-95 shadow-xs">
+                            <i class="fas fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <!-- Horizontal Snap Carousel on Mobile / 3-Col Grid on Desktop -->
+            <div id="services-carousel" class="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-2 -mx-4 px-4 md:mx-0 md:px-0 items-start">
                 <!-- Capability 1 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-file-signature"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-primary-300 ring-1 ring-primary-500/10 shadow-sm transition-all">
+                    <button type="button" aria-expanded="true" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">RFI, RFP &amp; Sources Sought Capture</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Hide details</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-primary-50 text-primary-600 flex items-center justify-center shrink-0 transition-transform duration-200 rotate-180 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Positioning your company early during market research (RFIs) and managing compliant, high-scoring RFP/RFQ bid submissions.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Early RFI &amp; Sources Sought positioning</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Full compliance matrix &amp; technical volume assembly</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">RFI, RFP &amp; Sources Sought Capture</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Positioning your company early during market research (RFIs) and managing compliant, high-scoring RFP/RFQ bid submissions.</p>
                 </div>
 
                 <!-- Capability 2 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-handshake"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-slate-200 hover:border-primary-300 shadow-sm transition-all">
+                    <button type="button" aria-expanded="false" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">Prime &amp; Federal Contract Brokerage</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Tap to expand</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 transition-transform duration-200 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body hidden px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Connecting vetted manufacturers, aerospace component suppliers, and facilities contractors directly with defense primes and agency buyers.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Direct prime small-business liaison introductions</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Teaming &amp; subcontracting structure negotiation</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Prime &amp; Federal Contract Brokerage</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Connecting vetted manufacturers, aerospace component suppliers, and facilities contractors directly with defense primes and agency buyers.</p>
                 </div>
 
                 <!-- Capability 3 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-chart-line"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-slate-200 hover:border-primary-300 shadow-sm transition-all">
+                    <button type="button" aria-expanded="false" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">B2B &amp; GovCon Business Development</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Tap to expand</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 transition-transform duration-200 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body hidden px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Building repeatable revenue pipelines, executive partner outreach, and strategic teaming agreements across commercial and public-sector markets.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Targeted decision-maker outreach campaigns</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Qualified opportunity pipeline tracking</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">B2B &amp; GovCon Business Development</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Building repeatable revenue pipelines, executive partner outreach, and strategic teaming agreements across commercial and public-sector markets.</p>
                 </div>
 
                 <!-- Capability 4 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-server"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-slate-200 hover:border-primary-300 shadow-sm transition-all">
+                    <button type="button" aria-expanded="false" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">Digital Infrastructure &amp; Modernization</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Tap to expand</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 transition-transform duration-200 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body hidden px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Upgrading legacy businesses with modern web presence, client/vendor portals, CRM workflows, and automated operational tooling that pass prime due diligence.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Modern web architecture &amp; executive capability decks</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Automated intake, CRM &amp; quoting workflows</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Digital Infrastructure &amp; Modernization</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Upgrading legacy businesses with modern web presence, client/vendor portals, CRM workflows, and automated operational tooling that pass prime due diligence.</p>
                 </div>
 
                 <!-- Capability 5 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-rocket"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-slate-200 hover:border-primary-300 shadow-sm transition-all">
+                    <button type="button" aria-expanded="false" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">New Venture &amp; Spin-Off Launch</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Tap to expand</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 transition-transform duration-200 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body hidden px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Taking new companies or specialized divisions from zero to market-ready—standing up brand identity, compliance registrations, digital infrastructure, and go-to-market systems.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>SAM.gov, CAGE &amp; NAICS positioning setup</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Complete digital stack &amp; outbound launch kit</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">New Venture &amp; Spin-Off Launch Architecture</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Taking new companies or specialized divisions from zero to market-ready—standing up brand identity, compliance registrations, digital infrastructure, and go-to-market systems.</p>
                 </div>
 
                 <!-- Capability 6 -->
-                <div class="fade-in p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                    <div class="w-11 h-11 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-lg mb-4">
-                        <i class="fas fa-balance-scale"></i>
+                <div class="service-card snap-center shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-2xl bg-white border border-slate-200 hover:border-primary-300 shadow-sm transition-all">
+                    <button type="button" aria-expanded="false" class="service-toggle w-full text-left p-5 sm:p-6 flex items-start justify-between gap-3 cursor-pointer">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center text-base shrink-0 mt-0.5">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">FAR/DFARS &amp; Facilities Bid Governance</h3>
+                                <span class="service-hint inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 mt-1">
+                                    <span>Tap to expand</span>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 transition-transform duration-200 service-chevron">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                    <div class="service-body hidden px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">Structuring competitive pricing, SLA frameworks, and federal flow-down compliance for multi-site facilities operations and precision manufacturing.</p>
+                        <ul class="space-y-1.5 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>FAR/DFARS flow-down &amp; risk audit</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-primary-500"></i>Margin-protected cost &amp; SLA modeling</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">FAR/DFARS &amp; Facilities Bid Governance</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Structuring competitive pricing, SLA frameworks, and federal flow-down compliance for multi-site facilities operations and precision manufacturing.</p>
                 </div>
+            </div>
+
+            <!-- Mobile Carousel Dot Indicators -->
+            <div id="services-dots" class="flex md:hidden items-center justify-center gap-2 mt-4">
+                <button type="button" aria-label="Slide 1" data-slide="0" class="service-dot h-2 w-6 rounded-full bg-primary-500 transition-all"></button>
+                <button type="button" aria-label="Slide 2" data-slide="1" class="service-dot h-2 w-2 rounded-full bg-slate-300 transition-all"></button>
+                <button type="button" aria-label="Slide 3" data-slide="2" class="service-dot h-2 w-2 rounded-full bg-slate-300 transition-all"></button>
+                <button type="button" aria-label="Slide 4" data-slide="3" class="service-dot h-2 w-2 rounded-full bg-slate-300 transition-all"></button>
+                <button type="button" aria-label="Slide 5" data-slide="4" class="service-dot h-2 w-2 rounded-full bg-slate-300 transition-all"></button>
+                <button type="button" aria-label="Slide 6" data-slide="5" class="service-dot h-2 w-2 rounded-full bg-slate-300 transition-all"></button>
             </div>
         </div>
     </section>
 
-    <!-- How It Works / Executive Process (Replaces bulky chart/SVG section) -->
-    <section id="process" class="py-14 md:py-24 bg-slate-50 border-y border-slate-100">
+    <!-- How It Works / Interactive Step-by-Step Process -->
+    <section id="process" class="py-12 md:py-24 bg-slate-50 border-y border-slate-100 transition-colors">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="max-w-2xl mb-10 md:mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Execution Framework</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Modernize Your Foundation, Then Capture Market Share</h2>
-                <p class="text-slate-600 text-base sm:text-lg">Prime contractors and enterprise buyers evaluate your digital credibility alongside your operational capacity. I align both.</p>
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 md:mb-10">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Execution Framework</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-2">Modernize Your Foundation, Then Capture Market Share</h2>
+                    <p class="text-slate-600 text-sm sm:text-lg">Step through the 3-phase acquisition and modernization roadmap below.</p>
+                </div>
+                <div class="inline-flex items-center gap-2 self-start sm:self-end px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+                    <span id="process-step-counter">Phase 1 of 3</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
-                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 01</span>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Infrastructure &amp; Readiness Audit</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">We modernize outdated web/CRM systems (or launch your new entity's digital stack) and align SAM.gov, NAICS codes, and executive capability positioning.</p>
+            <!-- Interactive Stepper Card -->
+            <div class="bg-white rounded-3xl border border-slate-200/90 shadow-lg shadow-slate-200/40 overflow-hidden">
+                <!-- Progress Bar -->
+                <div class="w-full h-1.5 bg-slate-100">
+                    <div id="process-progress-bar" class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: 33.33%;"></div>
                 </div>
 
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
-                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 02</span>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Business Development &amp; Bid Capture</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">I drive targeted B2B and prime buyer outreach, qualify high-fit RFIs/RFPs, and package compliant technical and pricing proposals.</p>
+                <!-- Tappable Step Selector Tabs -->
+                <div role="tablist" aria-label="Execution Steps" class="grid grid-cols-3 border-b border-slate-100 bg-slate-50/70">
+                    <button type="button" role="tab" aria-selected="true" data-step="0"
+                        class="process-tab p-3.5 sm:p-5 text-left border-b-2 border-primary-500 bg-white transition-all active:scale-[0.99]">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="step-badge w-6 h-6 rounded-lg bg-primary-500 text-white text-xs font-extrabold flex items-center justify-center">01</span>
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-primary-600 hidden sm:inline">Foundation</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Audit &amp; Readiness</p>
+                    </button>
+
+                    <button type="button" role="tab" aria-selected="false" data-step="1"
+                        class="process-tab p-3.5 sm:p-5 text-left border-b-2 border-transparent hover:bg-white/60 transition-all active:scale-[0.99]">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="step-badge w-6 h-6 rounded-lg bg-slate-200 text-slate-600 text-xs font-extrabold flex items-center justify-center">02</span>
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 hidden sm:inline">Capture</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold text-slate-600 leading-tight">BizDev &amp; Bid Capture</p>
+                    </button>
+
+                    <button type="button" role="tab" aria-selected="false" data-step="2"
+                        class="process-tab p-3.5 sm:p-5 text-left border-b-2 border-transparent hover:bg-white/60 transition-all active:scale-[0.99]">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="step-badge w-6 h-6 rounded-lg bg-slate-200 text-slate-600 text-xs font-extrabold flex items-center justify-center">03</span>
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 hidden sm:inline">Scale</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold text-slate-600 leading-tight">Award &amp; Delivery</p>
+                    </button>
                 </div>
 
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80">
-                    <span class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-lg mb-4">STEP 03</span>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Contract Award &amp; Scalable Delivery</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">From negotiation and vendor portal onboarding to automated operational workflows, I ensure your business can execute and scale repeat wins.</p>
+                <!-- Active Step Content Stage -->
+                <div id="process-stage" class="p-5 sm:p-8 step-animate">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <div class="lg:col-span-7 space-y-3">
+                            <span id="process-phase-tag" class="inline-block text-xs font-extrabold text-primary-600 bg-primary-50 px-3 py-1 rounded-lg">
+                                STEP 01 &bull; INFRASTRUCTURE &amp; COMPLIANCE
+                            </span>
+                            <h3 id="process-title" class="text-xl sm:text-2xl font-extrabold text-slate-900">
+                                Infrastructure &amp; Readiness Audit
+                            </h3>
+                            <p id="process-desc" class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                We modernize outdated web and CRM systems (or launch your new entity's digital stack from scratch) and align SAM.gov, CAGE codes, NAICS positioning, and executive capability decks so you pass prime buyer due diligence immediately.
+                            </p>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-200/70">
+                            <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3">Key Phase Deliverables</p>
+                            <ul id="process-deliverables" class="space-y-2.5 text-xs sm:text-sm font-medium text-slate-700">
+                                <li class="flex items-start gap-2.5"><i class="fas fa-check-circle text-primary-500 mt-0.5"></i><span>Modern web footprint &amp; capability statement</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fas fa-check-circle text-primary-500 mt-0.5"></i><span>SAM.gov, NAICS &amp; vendor portal verification</span></li>
+                                <li class="flex items-start gap-2.5"><i class="fas fa-check-circle text-primary-500 mt-0.5"></i><span>CRM &amp; automated intake workflow setup</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Step Controls Footer -->
+                <div class="px-5 sm:px-8 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <button type="button" id="process-prev-btn" disabled
+                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-400 text-xs sm:text-sm font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95">
+                        <i class="fas fa-arrow-left text-xs"></i>
+                        <span>Previous</span>
+                    </button>
+
+                    <div class="flex items-center gap-1.5">
+                        <span class="process-dot w-6 h-2 rounded-full bg-primary-500 transition-all"></span>
+                        <span class="process-dot w-2 h-2 rounded-full bg-slate-300 transition-all"></span>
+                        <span class="process-dot w-2 h-2 rounded-full bg-slate-300 transition-all"></span>
+                    </div>
+
+                    <button type="button" id="process-next-btn"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-xs sm:text-sm font-bold shadow-sm transition-all active:scale-95">
+                        <span id="process-next-label">Next: Bid Capture</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Engagement Models Section -->
-    <section id="engagement" class="py-14 md:py-24">
+    <section id="engagement" class="py-12 md:py-24 transition-colors">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="max-w-2xl mb-8 md:mb-12">
+            <div class="max-w-2xl mb-6 md:mb-12">
                 <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Engagement Options</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Ways to Work Together</h2>
-                <p class="text-slate-600 text-base sm:text-lg mb-6">Choose deal-by-deal solicitation capture or ongoing fractional procurement leadership.</p>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-2">Ways to Work Together</h2>
+                <p class="text-slate-600 text-sm sm:text-lg mb-5">Switch between deal-by-deal execution or ongoing fractional leadership.</p>
 
                 <!-- App-Style Segmented Control -->
-                <div class="grid grid-cols-2 sm:inline-flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto">
-                    <button type="button" id="label-sprint" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition-all">
+                <div class="grid grid-cols-2 sm:inline-flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto mb-3 md:mb-0">
+                    <button type="button" id="label-sprint" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition-all active:scale-95">
                         Per-Solicitation / Deal
                     </button>
-                    <button type="button" id="label-retainer" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                    <button type="button" id="label-retainer" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 transition-all active:scale-95">
                         Ongoing Retainer
                     </button>
                     <input type="checkbox" id="engagement-switch" class="sr-only">
+                </div>
+
+                <!-- Mobile Tier Switcher Tabs -->
+                <div role="tablist" aria-label="Engagement Tier Selector" class="grid md:hidden grid-cols-3 gap-1.5 mt-3 bg-slate-100 p-1 rounded-2xl">
+                    <button type="button" data-tier="0" class="tier-tab py-2 px-2 rounded-xl text-[11px] font-bold text-slate-600 transition-all active:scale-95">
+                        Digital &amp; Launch
+                    </button>
+                    <button type="button" data-tier="1" class="tier-tab py-2 px-2 rounded-xl text-[11px] font-extrabold bg-primary-500 text-white shadow-xs transition-all active:scale-95">
+                        Brokerage &amp; BizDev
+                    </button>
+                    <button type="button" data-tier="2" class="tier-tab py-2 px-2 rounded-xl text-[11px] font-bold text-slate-600 transition-all active:scale-95">
+                        Fractional Exec
+                    </button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
                 <!-- Tier 1 -->
-                <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between">
+                <div data-tier-card="0" class="tier-card hidden md:flex rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex-col justify-between">
                     <div>
                         <h4 class="text-lg font-bold text-slate-900">Digital Infrastructure &amp; Launch</h4>
                         <div class="my-3">
                             <span class="text-2xl font-extrabold text-slate-900 mode-title">Modernize or Launch</span>
                         </div>
-                        <p class="text-slate-500 text-sm mb-5 mode-sub">For legacy businesses updating systems or founders launching new ventures.</p>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">Fixed-scope web architecture, CRM automation, and SAM.gov readiness.</p>
                         <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Modern web architecture &amp; executive positioning</span></li>
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>CRM, intake, &amp; workflow automation setup</span></li>
@@ -368,8 +592,8 @@
                     </a>
                 </div>
 
-                <!-- Tier 2 (Primary) -->
-                <div class="rounded-2xl bg-white border-2 border-primary-500 p-6 sm:p-7 flex flex-col justify-between shadow-lg relative">
+                <!-- Tier 2 (Primary - Default Active on Mobile) -->
+                <div data-tier-card="1" class="tier-card flex rounded-2xl bg-white border-2 border-primary-500 p-6 sm:p-7 flex-col justify-between shadow-lg relative">
                     <div class="inline-block self-start px-3 py-1 rounded-lg bg-primary-50 text-primary-700 text-[11px] font-extrabold uppercase tracking-wider mb-3">
                         Most Requested by CEOs &amp; VPs
                     </div>
@@ -378,7 +602,7 @@
                         <div class="my-3">
                             <span class="text-2xl font-extrabold text-slate-900 mode-title">Pipeline &amp; RFI / RFP Capture</span>
                         </div>
-                        <p class="text-slate-500 text-sm mb-5 mode-sub">Full-lifecycle solicitation sourcing, business development, and bid capture.</p>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">Solicitation-specific brokerage, BizDev outreach, and bid submission.</p>
                         <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Targeted RFI, RFP &amp; RFQ opportunity sourcing</span></li>
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Direct B2B &amp; prime buyer business development</span></li>
@@ -392,13 +616,13 @@
                 </div>
 
                 <!-- Tier 3 -->
-                <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between">
+                <div data-tier-card="2" class="tier-card hidden md:flex rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 flex-col justify-between">
                     <div>
                         <h4 class="text-lg font-bold text-slate-900">Fractional Procurement &amp; Growth</h4>
                         <div class="my-3">
-                            <span class="text-2xl font-extrabold text-slate-900 mode-title">Executive Leadership</span>
+                            <span class="text-2xl font-extrabold text-slate-900 mode-title">Pre-Submission Red Team</span>
                         </div>
-                        <p class="text-slate-500 text-sm mb-5 mode-sub">Ongoing leadership across procurement, vendor strategy, and digital ops.</p>
+                        <p class="text-slate-500 text-sm mb-5 mode-sub">Targeted pricing, margin, and FAR/DFARS compliance review.</p>
                         <ul class="space-y-2.5 text-sm text-slate-600 border-t border-slate-100 pt-5 mb-6">
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Go/No-Go bid qualification &amp; growth roadmap</span></li>
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Subcontractor &amp; material supplier sourcing</span></li>
@@ -414,50 +638,8 @@
         </div>
     </section>
 
-    <!-- Endorsements Section (Clean Typography Cards — Zero Cartoon Avatars) -->
-    <section id="endorsements" class="py-14 md:py-24 bg-slate-50 border-y border-slate-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="max-w-2xl mb-10 md:mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-primary-600">Client Feedback</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">Trusted by Executives &amp; Operations Leaders</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
-                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
-                        "We had the shop capacity for defense and aerospace components but zero bandwidth to navigate federal RFIs. Megan stepped in, structured our response, and got us in front of prime buyers immediately."
-                    </p>
-                    <div class="pt-4 border-t border-slate-100">
-                        <p class="font-bold text-slate-900 text-sm">VP of Manufacturing</p>
-                        <p class="text-xs text-slate-500">Precision Aerospace &amp; Defense Supplier</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
-                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
-                        "Her command of FAR requirements and competitive pricing helped us secure multi-year public-sector facilities contracts without adding full-time overhead to our management team."
-                    </p>
-                    <div class="pt-4 border-t border-slate-100">
-                        <p class="font-bold text-slate-900 text-sm">Director of Facilities Operations</p>
-                        <p class="text-xs text-slate-500">Regional Commercial Maintenance Group</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 flex flex-col justify-between">
-                    <p class="text-slate-700 text-sm leading-relaxed mb-6">
-                        "Megan overhauled our outdated digital infrastructure and built a real business development engine around it. We went from relying on word-of-mouth to winning institutional and prime contracts."
-                    </p>
-                    <div class="pt-4 border-t border-slate-100">
-                        <p class="font-bold text-slate-900 text-sm">Chief Executive Officer</p>
-                        <p class="text-xs text-slate-500">Industrial Supply &amp; Logistics Firm</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
-    <section id="about" class="py-14 md:py-24">
+    <section id="about" class="py-12 md:py-24 bg-slate-50 border-y border-slate-100 transition-colors">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                 <div class="lg:col-span-7 space-y-4">
@@ -478,15 +660,15 @@
                 </div>
 
                 <div class="lg:col-span-5 grid grid-cols-1 gap-3.5">
-                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80">
                         <h3 class="text-lg font-extrabold text-slate-900">Federal &amp; Prime Contract Capture</h3>
                         <p class="text-xs sm:text-sm text-slate-600 mt-1">Compliant RFI/RFP brokerage for manufacturing, aerospace, and facilities leaders.</p>
                     </div>
-                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80">
                         <h3 class="text-lg font-extrabold text-slate-900">Digital Infrastructure &amp; Modernization</h3>
                         <p class="text-xs sm:text-sm text-slate-600 mt-1">Modern web platforms, automated workflows, and launch systems for new or legacy firms.</p>
                     </div>
-                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200/80">
                         <h3 class="text-lg font-extrabold text-slate-900">Strategic Business Development</h3>
                         <p class="text-xs sm:text-sm text-slate-600 mt-1">Direct buyer outreach, teaming partnerships, and scalable revenue architecture.</p>
                     </div>
@@ -495,74 +677,101 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-14 md:py-24 bg-slate-50 border-t border-slate-100">
+    <!-- Contact Section (Formspree Integrated) -->
+    <section id="contact" class="py-12 md:py-24 transition-colors">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 bg-white">
+            <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-200 grid grid-cols-1 lg:grid-cols-12">
                 <!-- Left Info Panel -->
                 <div class="lg:col-span-5 bg-slate-900 text-white p-7 sm:p-10 flex flex-col justify-between">
-                    <div class="space-y-5">
-                        <span class="inline-block text-xs font-bold uppercase tracking-wider text-primary-400">Direct Inquiry</span>
-                        <h3 class="text-2xl sm:text-3xl font-extrabold leading-tight">Ready to Win More Contracts or Modernize Your Business?</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Whether you're responding to an active RFI/RFP, scaling commercial business development, modernizing legacy operations, or launching a new venture from scratch, send over your details.
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Direct Inquiry</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-3">Discuss a Contract, Growth Initiative, or System Build</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-8">
+                            Share your company's capabilities, target solicitation, or digital modernization goals. Inquiries go directly to my desk.
                         </p>
 
-                        <div class="space-y-3.5 pt-3 text-sm">
-                            <button type="button" onclick="copyEmail()" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 active:bg-slate-700 text-slate-200 transition-colors text-left">
-                                <i class="fas fa-envelope text-primary-400"></i>
-                                <span class="font-medium">business@meganfrench.tech</span>
-                                <span class="ml-auto text-[11px] text-slate-400">Tap to copy</span>
+                        <div class="space-y-4 text-sm">
+                            <button type="button" onclick="copyEmail()" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700/80 active:scale-[0.99] transition-all text-left group">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-envelope text-indigo-400"></i>
+                                    <span class="text-slate-100 font-medium">business@meganfrench.tech</span>
+                                </div>
+                                <span class="text-xs font-semibold text-indigo-400 group-hover:underline">Copy</span>
                             </button>
-                            <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 active:bg-slate-700 text-slate-200 transition-colors text-left">
-                                <i class="fas fa-building text-primary-400"></i>
-                                <span class="font-medium">MEG AND GREG GROUP, LLC</span>
-                                <i class="fas fa-external-link-alt ml-auto text-[11px] text-slate-400"></i>
-                            </a>
-                            <div class="flex items-center gap-3 px-3 py-2 text-slate-300">
-                                <i class="fas fa-map-marker-alt text-primary-400"></i>
-                                <span>United States • Nationwide Federal &amp; Prime Coverage</span>
+
+                            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-800/60 text-slate-300">
+                                <i class="fas fa-globe-americas text-indigo-400"></i>
+                                <span>Serving U.S. Commercial &amp; Federal Contractors</span>
                             </div>
+
+                            <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-800/60 hover:bg-slate-800 transition-colors text-slate-200">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-building text-indigo-400"></i>
+                                    <span>MEG AND GREG GROUP, LLC</span>
+                                </div>
+                                <i class="fas fa-arrow-up-right-from-square text-xs text-slate-400"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3 pt-8">
-                        <a href="https://www.linkedin.com/in/mflogistics" target="_blank" rel="noopener noreferrer" aria-label="Megan French on LinkedIn" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center text-white transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
+                    <div class="pt-8 mt-8 border-t border-slate-800 flex items-center gap-3">
+                        <a href="https://www.linkedin.com/in/mflogistics" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center transition-colors">
+                            <i class="fab fa-linkedin-in text-base"></i>
                         </a>
-                        <button type="button" onclick="copyEmail()" aria-label="Copy Email" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center text-white transition-colors">
-                            <i class="far fa-copy"></i>
-                        </button>
+                        <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" aria-label="MEG AND GREG GROUP, LLC" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center transition-colors">
+                            <i class="fas fa-globe text-base"></i>
+                        </a>
+                        <a href="mailto:business@meganfrench.tech" aria-label="Email" class="w-11 h-11 rounded-xl bg-slate-800 hover:bg-primary-500 flex items-center justify-center transition-colors">
+                            <i class="fas fa-envelope text-base"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Right Contact Form -->
-                <div class="lg:col-span-7 p-7 sm:p-10">
+                <!-- Right Formspree AJAX Form -->
+                <div class="lg:col-span-7 bg-white p-7 sm:p-10">
                     <form id="contactForm" action="https://formspree.io/f/moedebad" method="POST" class="space-y-4">
+                        <input type="hidden" name="_subject" value="New Executive Inquiry from meganfrench.tech">
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Your Name &amp; Title</label>
                                 <input type="text" id="name" name="name" placeholder="John Doe, VP Operations" required
-                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-base sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
                             </div>
                             <div>
-                                <label for="company" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Company Name</label>
-                                <input type="text" id="company" name="company" placeholder="Apex Precision Mfg / Facilities" required
-                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
+                                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Work Email</label>
+                                <input type="email" id="email" name="email" placeholder="john@company.com" required
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-base sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
                             </div>
                         </div>
-                        <div>
-                            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Work Email</label>
-                            <input type="email" id="email" name="email" placeholder="john@company.com" required
-                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="company" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Company Name</label>
+                                <input type="text" id="company" name="company" placeholder="Acme Manufacturing LLC"
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-base sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label for="sector" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Primary Focus</label>
+                                <select id="sector" name="sector"
+                                    class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-base sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+                                    <option value="Federal / Prime Contract Brokerage">Federal / Prime Contract Brokerage</option>
+                                    <option value="Digital Infrastructure & Modernization">Digital Infrastructure &amp; Modernization</option>
+                                    <option value="B2B Business Development">B2B Business Development</option>
+                                    <option value="New Venture Launch">New Venture Launch</option>
+                                    <option value="Fractional Procurement Leadership">Fractional Procurement Leadership</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div>
-                            <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Project, Solicitation, or Modernization Goals</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Tell me about your company, an active RFI/RFP, business development goals, or digital infrastructure needs..." required
-                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm resize-none"></textarea>
+                            <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Project, Solicitation, or Growth Summary</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell me about your capabilities, target contracts, or digital modernization needs..." required
+                                class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-base sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-4 px-6 rounded-xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-md">
-                            Send Direct Inquiry
+
+                        <button type="submit" id="submitBtn" class="w-full py-4 px-6 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base shadow-md shadow-primary-500/20 transition-all">
+                            Schedule a Free Consultation
                         </button>
                     </form>
                 </div>
@@ -571,93 +780,482 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12">
+    <footer class="bg-slate-900 text-slate-400 pt-12 pb-12 border-t border-slate-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" aria-label="MEG AND GREG GROUP, LLC Website" class="shrink-0 group">
-                    <!-- Uses MGGLogodark.png when hosted alongside index.html, with an exact vector fallback for standalone previews -->
-                    <img src="MGGLogodark.png" alt="MEG AND GREG GROUP, LLC"
-                         class="h-14 w-14 object-contain transition-transform duration-200 group-hover:scale-105"
-                         onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                    <svg class="hidden h-14 w-14 transition-transform duration-200 group-hover:scale-105" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MEG AND GREG GROUP, LLC">
-                        <circle cx="110" cy="110" r="102" stroke="#cbd5e1" stroke-opacity="0.3" stroke-width="1.2"/>
-                        <ellipse cx="110" cy="110" rx="102" ry="38" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
-                        <ellipse cx="110" cy="110" rx="44" ry="102" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
-                        <line x1="25" y1="55" x2="195" y2="165" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
-                        <line x1="195" y1="55" x2="25" y2="165" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
-                        <circle cx="66" cy="48" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
-                        <circle cx="154" cy="48" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
-                        <circle cx="110" cy="110" r="3" fill="#cbd5e1" fill-opacity="0.45"/>
-                        <circle cx="52" cy="164" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
-                        <circle cx="168" cy="164" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
-                        <text x="110" y="128" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="52" letter-spacing="1">M.E.G.</text>
-                        <text x="110" y="160" text-anchor="middle" fill="#5b7bb2" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="33" letter-spacing="1">G.R.E.G</text>
-                        <text x="164" y="178" text-anchor="middle" fill="#5b7bb2" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="16">group</text>
-                        <circle cx="195" cy="174" r="3.5" fill="#facc15"/>
-                    </svg>
-                </a>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
                 <div>
                     <a href="#hero" class="text-xl font-extrabold tracking-tight text-white">
                         meganfrench<span class="text-primary-500">.tech</span>
                     </a>
-                    <p class="text-xs text-slate-400 mt-1">CEO &amp; Owner, <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white underline underline-offset-2 transition-colors">MEG AND GREG GROUP, LLC</a> &bull; Procurement &amp; Digital Infrastructure</p>
+                    <p class="text-xs text-slate-400 mt-1">Procurement Director &bull; Federal Contract Broker &bull; Digital Infrastructure</p>
                 </div>
+
+                <span class="hidden sm:block h-8 w-px bg-slate-800"></span>
+
+                <!-- MEG AND GREG GROUP, LLC Logo + Link -->
+                <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" aria-label="MEG AND GREG GROUP, LLC" class="inline-flex items-center gap-3 group">
+                    <img src="MGGLogodark.png" alt="MEG AND GREG GROUP, LLC" class="h-11 w-auto object-contain opacity-95 group-hover:opacity-100 transition-opacity"
+                         onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                    <svg class="hidden h-11 w-11 shrink-0" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MEG AND GREG GROUP, LLC Logo">
+                        <circle cx="100" cy="100" r="94" stroke="#94a3b8" stroke-opacity="0.35" stroke-width="1.5"/>
+                        <path d="M22 65 L95 25 L175 68 L155 155 L52 165 Z" stroke="#94a3b8" stroke-opacity="0.28" stroke-width="1.2"/>
+                        <path d="M40 35 L145 170 M162 35 L38 152 M100 6 L100 194 M8 100 L192 100" stroke="#94a3b8" stroke-opacity="0.25" stroke-width="1.2"/>
+                        <circle cx="95" cy="25" r="3" fill="#94a3b8" fill-opacity="0.5"/>
+                        <circle cx="155" cy="155" r="3" fill="#94a3b8" fill-opacity="0.5"/>
+                        <circle cx="52" cy="165" r="3" fill="#94a3b8" fill-opacity="0.5"/>
+                        <text x="100" y="106" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="2">M.E.G.</text>
+                        <text x="100" y="138" text-anchor="middle" fill="#4f74a8" font-family="Inter, sans-serif" font-weight="900" font-size="31" letter-spacing="1.5">G.R.E.G</text>
+                        <text x="142" y="157" text-anchor="middle" fill="#4f74a8" font-family="Inter, sans-serif" font-weight="800" font-size="16">group</text>
+                        <circle cx="172" cy="153" r="4" fill="#eab308"/>
+                    </svg>
+                    <div class="text-left">
+                        <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">MEG AND GREG GROUP, LLC</span>
+                        <span class="block text-[11px] text-slate-500 group-hover:text-indigo-400 transition-colors">megandgreggroup.com &rarr;</span>
+                    </div>
+                </a>
             </div>
-            <div class="flex flex-wrap items-center gap-6 text-xs font-medium">
-                <a href="#expertise" class="hover:text-white transition-colors">Capabilities</a>
-                <a href="#process" class="hover:text-white transition-colors">Process</a>
-                <a href="#engagement" class="hover:text-white transition-colors">Engagement</a>
-                <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">MEG AND GREG GROUP, LLC</a>
-                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+
+            <div class="text-xs text-slate-500">
+                &copy; <span id="year"></span> Megan French. All rights reserved.
             </div>
-            <p class="text-xs text-slate-500">&copy; <span id="current-year"></span> Megan French. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Hidden textarea for iFrame-safe clipboard copy -->
-    <textarea id="clipboard-helper" class="sr-only" aria-hidden="true">business@meganfrench.tech</textarea>
-
-    <!-- Consolidated JavaScript -->
+    <!-- Interactive Logic -->
     <script>
-        // Ensure clean initial load at the top of the page when opened from mobile links/texts
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-slate-900 border-emerald-500' : 'bg-red-900 border-red-500';
+            const icon = type === 'success' ? '<i class="fas fa-check-circle text-emerald-400"></i>' : '<i class="fas fa-exclamation-circle text-red-400"></i>';
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-2xl border-l-4 text-white text-sm shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0 ${bgColor}`;
+            toast.innerHTML = `${icon}<span>${message}</span>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-2', 'opacity-0'));
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3800);
         }
-        window.addEventListener('load', () => {
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
+
+        function copyEmail() {
+            const email = 'business@meganfrench.tech';
+            const tempInput = document.createElement('input');
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('Copied business@meganfrench.tech to clipboard');
+        }
+
+        function selectInquiry(topic) {
+            const messageBox = document.getElementById('message');
+            if (messageBox) {
+                messageBox.value = `Hi Megan, I'd like to schedule ${topic}. `;
+                setTimeout(() => messageBox.focus(), 400);
             }
-        });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
-            }
-            document.getElementById('current-year').textContent = new Date().getFullYear();
+            document.getElementById('year').textContent = new Date().getFullYear();
 
-            /* 1. Sticky Navbar Elevation */
+            /* 1. Sticky Navbar Elevation & Mobile Bottom Nav Active Tracking */
             const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const mobileNavIndicator = document.getElementById('mobile-nav-indicator');
+            const trackedSections = ['expertise', 'process', 'engagement', 'about', 'contact']
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+
+            function setActiveMobileTab(activeId, triggerPulse = false) {
+                let activeIndex = -1;
+
+                mobileNavLinks.forEach((link, idx) => {
+                    const isMatch = link.getAttribute('data-nav-target') === activeId;
+                    const icon = link.querySelector('i');
+                    if (isMatch) {
+                        activeIndex = idx;
+                        link.classList.add('text-primary-600');
+                        link.classList.remove('text-slate-500');
+                        if (icon) icon.classList.add('-translate-y-0.5', 'scale-110');
+                    } else {
+                        link.classList.remove('text-primary-600');
+                        link.classList.add('text-slate-500');
+                        if (icon) icon.classList.remove('-translate-y-0.5', 'scale-110');
+                    }
+                });
+
+                if (mobileNavIndicator) {
+                    if (activeIndex >= 0) {
+                        mobileNavIndicator.style.opacity = '1';
+                        mobileNavIndicator.style.transform = `translateX(${activeIndex * 100}%)`;
+                    } else {
+                        mobileNavIndicator.style.opacity = '0';
+                    }
+                }
+
+                if (triggerPulse && activeId) {
+                    const targetEl = document.getElementById(activeId);
+                    if (targetEl) {
+                        targetEl.classList.remove('section-engaged');
+                        void targetEl.offsetWidth;
+                        targetEl.classList.add('section-engaged');
+                    }
+                }
+            }
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('data-nav-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        if (navigator.vibrate) navigator.vibrate(12);
+                        setActiveMobileTab(targetId, true);
+                        const navHeight = navbar ? navbar.offsetHeight : 64;
+                        const topPos = targetEl.getBoundingClientRect().top + window.scrollY - navHeight - 6;
+                        window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+                        history.replaceState(null, '', `#${targetId}`);
+                    }
+                });
+            });
+
+            function updateScrollState() {
                 if (window.scrollY > 12) {
                     navbar.classList.add('shadow-sm');
                 } else {
                     navbar.classList.remove('shadow-sm');
                 }
-            }, { passive: true });
 
-            /* 2. Scroll Animations */
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        obs.unobserve(entry.target);
+                const scrollCheck = window.scrollY + (window.innerHeight * 0.35);
+                let currentId = null;
+
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 60) {
+                    currentId = 'contact';
+                } else {
+                    for (const sec of trackedSections) {
+                        if (scrollCheck >= sec.offsetTop) {
+                            currentId = sec.id;
+                        }
+                    }
+                }
+                setActiveMobileTab(currentId, false);
+            }
+
+            window.addEventListener('scroll', updateScrollState, { passive: true });
+            updateScrollState();
+
+            /* 2. Hero Interactive Objective Switcher */
+            const pillarTabs = document.querySelectorAll('.pillar-tab');
+            const pillarBadge = document.getElementById('pillar-badge');
+            const pillarMetric = document.getElementById('pillar-metric');
+            const pillarHeading = document.getElementById('pillar-heading');
+            const pillarDesc = document.getElementById('pillar-desc');
+            const pillarCta = document.getElementById('pillar-cta');
+
+            const pillarData = {
+                contracts: {
+                    badge: 'Manufacturing, Aerospace & Facilities',
+                    metric: 'RFI • RFP • Subcontracting',
+                    heading: 'Turn Shop & Field Capacity Into Awarded Federal and Prime Contracts',
+                    desc: 'I source qualified solicitations, position your firm early during RFI/Sources Sought stages, assemble compliant FAR/DFARS proposal packages, and broker direct relationships with prime buyers.',
+                    inquiry: 'a Free Consultation regarding Federal & Prime Contract Brokerage'
+                },
+                infrastructure: {
+                    badge: 'Legacy Modernization & Systems Architecture',
+                    metric: 'Web • CRM • Vendor Portals',
+                    heading: 'Upgrade Outdated Systems to Pass Prime & Enterprise Due Diligence',
+                    desc: 'I overhaul legacy websites, quoting pipelines, CRM systems, and executive capability decks so institutional buyers immediately see an operational partner ready for scale.',
+                    inquiry: 'a Free Consultation regarding Digital Infrastructure & Modernization'
+                },
+                bizdev: {
+                    badge: 'B2B & Public-Sector Growth',
+                    metric: 'Pipeline • Teaming • Outreach',
+                    heading: 'Build a Repeatable Pipeline of High-Margin Commercial & Prime Deals',
+                    desc: 'I execute targeted decision-maker outreach, negotiate strategic teaming agreements, and establish structured B2B business development engines that replace inconsistent referrals.',
+                    inquiry: 'a Free Consultation regarding Strategic Business Development'
+                },
+                launch: {
+                    badge: 'Zero-to-One Entity & Division Launch',
+                    metric: 'SAM.gov • Brand • Go-To-Market',
+                    heading: 'Stand Up a New Company or Specialized Division Ready to Bid',
+                    desc: 'From entity positioning, SAM.gov/CAGE setup, and digital stack deployment to initial outbound market entry, I build the commercial and compliance foundation from day one.',
+                    inquiry: 'a Free Consultation regarding a New Venture Launch'
+                }
+            };
+
+            pillarTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const key = tab.getAttribute('data-pillar');
+                    const data = pillarData[key];
+                    if (!data) return;
+
+                    pillarTabs.forEach(t => {
+                        const isSelected = t === tab;
+                        const icon = t.querySelector('i');
+                        const dot = t.querySelector('.pillar-dot');
+                        t.setAttribute('aria-selected', String(isSelected));
+
+                        if (isSelected) {
+                            t.classList.add('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
+                            t.classList.remove('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
+                            if (icon) { icon.classList.add('text-primary-600'); icon.classList.remove('text-slate-400'); }
+                            if (dot) { dot.classList.add('bg-primary-500'); dot.classList.remove('bg-transparent'); }
+                        } else {
+                            t.classList.remove('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
+                            t.classList.add('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
+                            if (icon) { icon.classList.remove('text-primary-600'); icon.classList.add('text-slate-400'); }
+                            if (dot) { dot.classList.remove('bg-primary-500'); dot.classList.add('bg-transparent'); }
+                        }
+                    });
+
+                    if (pillarBadge) pillarBadge.textContent = data.badge;
+                    if (pillarMetric) pillarMetric.textContent = data.metric;
+                    if (pillarHeading) pillarHeading.textContent = data.heading;
+                    if (pillarDesc) pillarDesc.textContent = data.desc;
+                    if (pillarCta) pillarCta.setAttribute('onclick', `selectInquiry('${data.inquiry}')`);
+                });
+            });
+
+            /* 3. Interactive Services Dropdowns + Mobile Horizontal Carousel */
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                const toggleBtn = card.querySelector('.service-toggle');
+                const body = card.querySelector('.service-body');
+                const chevron = card.querySelector('.service-chevron');
+                const hint = card.querySelector('.service-hint span');
+
+                toggleBtn.addEventListener('click', () => {
+                    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+                    const nextState = !isExpanded;
+
+                    toggleBtn.setAttribute('aria-expanded', String(nextState));
+                    body.classList.toggle('hidden', !nextState);
+
+                    if (nextState) {
+                        chevron.classList.add('rotate-180', 'bg-primary-50', 'text-primary-600');
+                        chevron.classList.remove('bg-slate-100', 'text-slate-600');
+                        card.classList.add('border-primary-300', 'ring-1', 'ring-primary-500/10');
+                        if (hint) hint.textContent = 'Hide details';
+                    } else {
+                        chevron.classList.remove('rotate-180', 'bg-primary-50', 'text-primary-600');
+                        chevron.classList.add('bg-slate-100', 'text-slate-600');
+                        card.classList.remove('border-primary-300', 'ring-1', 'ring-primary-500/10');
+                        if (hint) hint.textContent = 'Tap to expand';
                     }
                 });
-            }, { threshold: 0.08 });
+            });
 
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            const carousel = document.getElementById('services-carousel');
+            const serviceDots = document.querySelectorAll('.service-dot');
+            const prevBtn = document.getElementById('service-prev');
+            const nextBtn = document.getElementById('service-next');
 
-            /* 3. Engagement Mode Segmented Control */
+            function updateCarouselDots() {
+                if (!carousel || serviceCards.length === 0) return;
+                const scrollLeft = carousel.scrollLeft;
+                let closestIdx = 0;
+                let minDiff = Infinity;
+
+                serviceCards.forEach((card, idx) => {
+                    const diff = Math.abs(card.offsetLeft - carousel.offsetLeft - scrollLeft);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closestIdx = idx;
+                    }
+                });
+
+                serviceDots.forEach((dot, idx) => {
+                    if (idx === closestIdx) {
+                        dot.classList.add('w-6', 'bg-primary-500');
+                        dot.classList.remove('w-2', 'bg-slate-300');
+                    } else {
+                        dot.classList.remove('w-6', 'bg-primary-500');
+                        dot.classList.add('w-2', 'bg-slate-300');
+                    }
+                });
+            }
+
+            function scrollToServiceSlide(index) {
+                if (!carousel || !serviceCards[index]) return;
+                const targetCard = serviceCards[index];
+                carousel.scrollTo({
+                    left: targetCard.offsetLeft - carousel.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+
+            if (carousel) {
+                carousel.addEventListener('scroll', updateCarouselDots, { passive: true });
+                serviceDots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        const idx = parseInt(dot.getAttribute('data-slide'), 10);
+                        scrollToServiceSlide(idx);
+                    });
+                });
+                if (prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        const cardWidth = serviceCards[0].offsetWidth + 16;
+                        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                    });
+                    nextBtn.addEventListener('click', () => {
+                        const cardWidth = serviceCards[0].offsetWidth + 16;
+                        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                    });
+                }
+            }
+
+            /* 4. Interactive 3-Step Process Stepper */
+            const processTabs = document.querySelectorAll('.process-tab');
+            const processDots = document.querySelectorAll('.process-dot');
+            const processStage = document.getElementById('process-stage');
+            const processCounter = document.getElementById('process-step-counter');
+            const processProgressBar = document.getElementById('process-progress-bar');
+            const processPhaseTag = document.getElementById('process-phase-tag');
+            const processTitle = document.getElementById('process-title');
+            const processDesc = document.getElementById('process-desc');
+            const processDeliverables = document.getElementById('process-deliverables');
+            const processPrevBtn = document.getElementById('process-prev-btn');
+            const processNextBtn = document.getElementById('process-next-btn');
+            const processNextLabel = document.getElementById('process-next-label');
+
+            const processStepsData = [
+                {
+                    tag: 'STEP 01 • INFRASTRUCTURE & COMPLIANCE',
+                    title: 'Infrastructure & Readiness Audit',
+                    desc: 'We modernize outdated web and CRM systems (or launch your new entity\'s digital stack from scratch) and align SAM.gov, CAGE codes, NAICS positioning, and executive capability decks so you pass prime buyer due diligence immediately.',
+                    deliverables: [
+                        'Modern web footprint & capability statement',
+                        'SAM.gov, NAICS & vendor portal verification',
+                        'CRM & automated intake workflow setup'
+                    ],
+                    nextLabel: 'Next: Bid Capture'
+                },
+                {
+                    tag: 'STEP 02 • BUSINESS DEVELOPMENT & CAPTURE',
+                    title: 'Business Development & Bid Capture',
+                    desc: 'I drive targeted B2B and prime buyer outreach, qualify high-fit RFIs and RFPs early, structure teaming agreements, and package compliant technical and pricing proposals.',
+                    deliverables: [
+                        'Direct prime & agency buyer introductions',
+                        'RFI / Sources Sought early positioning',
+                        'Full RFP compliance matrix & pricing package'
+                    ],
+                    nextLabel: 'Next: Award & Delivery'
+                },
+                {
+                    tag: 'STEP 03 • EXECUTION & SCALE',
+                    title: 'Contract Award & Scalable Delivery',
+                    desc: 'From contract negotiation and prime vendor portal onboarding to automated operational workflows, I ensure your business executes cleanly and converts initial wins into repeat awards.',
+                    deliverables: [
+                        'Subcontract & SLA negotiation support',
+                        'Prime vendor portal & compliance onboarding',
+                        'Repeatable pipeline & renewal tracking'
+                    ],
+                    nextLabel: 'Book Your Consultation'
+                }
+            ];
+
+            let currentProcessStep = 0;
+
+            function renderProcessStep(stepIdx) {
+                currentProcessStep = stepIdx;
+                const data = processStepsData[stepIdx];
+                if (!data) return;
+
+                if (processCounter) processCounter.textContent = `Phase ${stepIdx + 1} of 3`;
+                if (processProgressBar) processProgressBar.style.width = `${((stepIdx + 1) / 3) * 100}%`;
+                if (processPhaseTag) processPhaseTag.textContent = data.tag;
+                if (processTitle) processTitle.textContent = data.title;
+                if (processDesc) processDesc.textContent = data.desc;
+
+                if (processDeliverables) {
+                    processDeliverables.innerHTML = data.deliverables
+                        .map(item => `<li class="flex items-start gap-2.5"><i class="fas fa-check-circle text-primary-500 mt-0.5"></i><span>${item}</span></li>`)
+                        .join('');
+                }
+
+                if (processStage) {
+                    processStage.classList.remove('step-animate');
+                    void processStage.offsetWidth;
+                    processStage.classList.add('step-animate');
+                }
+
+                processTabs.forEach((tab, idx) => {
+                    const isSelected = idx === stepIdx;
+                    const badge = tab.querySelector('.step-badge');
+                    const titleEl = tab.querySelector('p');
+                    tab.setAttribute('aria-selected', String(isSelected));
+
+                    if (isSelected) {
+                        tab.classList.add('border-primary-500', 'bg-white');
+                        tab.classList.remove('border-transparent');
+                        if (badge) { badge.classList.add('bg-primary-500', 'text-white'); badge.classList.remove('bg-slate-200', 'text-slate-600'); }
+                        if (titleEl) { titleEl.classList.add('text-slate-900'); titleEl.classList.remove('text-slate-600'); }
+                    } else {
+                        tab.classList.remove('border-primary-500', 'bg-white');
+                        tab.classList.add('border-transparent');
+                        if (badge) { badge.classList.remove('bg-primary-500', 'text-white'); badge.classList.add('bg-slate-200', 'text-slate-600'); }
+                        if (titleEl) { titleEl.classList.remove('text-slate-900'); titleEl.classList.add('text-slate-600'); }
+                    }
+                });
+
+                processDots.forEach((dot, idx) => {
+                    if (idx === stepIdx) {
+                        dot.classList.add('w-6', 'bg-primary-500');
+                        dot.classList.remove('w-2', 'bg-slate-300');
+                    } else {
+                        dot.classList.remove('w-6', 'bg-primary-500');
+                        dot.classList.add('w-2', 'bg-slate-300');
+                    }
+                });
+
+                if (processPrevBtn) {
+                    processPrevBtn.disabled = stepIdx === 0;
+                    if (stepIdx === 0) {
+                        processPrevBtn.classList.add('text-slate-400');
+                        processPrevBtn.classList.remove('text-slate-700', 'hover:border-primary-400');
+                    } else {
+                        processPrevBtn.classList.remove('text-slate-400');
+                        processPrevBtn.classList.add('text-slate-700', 'hover:border-primary-400');
+                    }
+                }
+
+                if (processNextLabel) {
+                    processNextLabel.textContent = data.nextLabel;
+                }
+            }
+
+            processTabs.forEach((tab, idx) => {
+                tab.addEventListener('click', () => renderProcessStep(idx));
+            });
+
+            if (processPrevBtn) {
+                processPrevBtn.addEventListener('click', () => {
+                    if (currentProcessStep > 0) renderProcessStep(currentProcessStep - 1);
+                });
+            }
+
+            if (processNextBtn) {
+                processNextBtn.addEventListener('click', () => {
+                    if (currentProcessStep < processStepsData.length - 1) {
+                        renderProcessStep(currentProcessStep + 1);
+                    } else {
+                        selectInquiry('a Free Consultation regarding the 3-Phase Acquisition & Modernization Roadmap');
+                        const contactEl = document.getElementById('contact');
+                        if (contactEl) {
+                            const navHeight = navbar ? navbar.offsetHeight : 64;
+                            const topPos = contactEl.getBoundingClientRect().top + window.scrollY - navHeight - 6;
+                            window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+                        }
+                    }
+                });
+            }
+
+            /* 5. Engagement Mode Segmented Control & Mobile Tier Switcher */
             const engagementSwitch = document.getElementById('engagement-switch');
             const labelSprint = document.getElementById('label-sprint');
             const labelRetainer = document.getElementById('label-retainer');
@@ -706,179 +1304,70 @@
                 labelRetainer.addEventListener('click', () => setEngagementMode(true));
             }
 
-            /* 3b. Hero Interactive Objective Switcher */
-            const pillarTabs = document.querySelectorAll('.pillar-tab');
-            const pillarBadge = document.getElementById('pillar-badge');
-            const pillarMetric = document.getElementById('pillar-metric');
-            const pillarHeading = document.getElementById('pillar-heading');
-            const pillarDesc = document.getElementById('pillar-desc');
-            const pillarCta = document.getElementById('pillar-cta');
-            const pillarCtaText = document.getElementById('pillar-cta-text');
+            const tierTabs = document.querySelectorAll('.tier-tab');
+            const tierCards = document.querySelectorAll('.tier-card');
 
-            const pillarContent = {
-                contracts: {
-                    badge: 'Manufacturing, Aerospace & Facilities',
-                    metric: 'RFI • RFP • Prime Subcontracting',
-                    heading: 'Turn Shop & Field Capacity Into Awarded Federal and Prime Contracts',
-                    desc: 'I source qualified solicitations, position your firm early during RFI/Sources Sought stages, assemble compliant FAR/DFARS proposal packages, and broker direct relationships with prime buyers.',
-                    ctaText: 'Schedule a Free Consultation',
-                    topic: 'a Free Consultation regarding Federal & Prime Contract Brokerage'
-                },
-                infrastructure: {
-                    badge: 'Legacy Modernization & Systems',
-                    metric: 'Web • Portals • CRM & Automation',
-                    heading: 'Upgrade Outdated Operations to Pass Prime & Enterprise Due Diligence',
-                    desc: 'Primes and institutional buyers vet your digital footprint before awarding work. I replace legacy websites, manual intake, and disconnected tools with modern web architecture and automated workflows.',
-                    ctaText: 'Schedule a Free Consultation',
-                    topic: 'a Free Consultation regarding Digital Infrastructure & Business Modernization'
-                },
-                bizdev: {
-                    badge: 'B2B & Public-Sector Growth',
-                    metric: 'Pipeline • Teaming • Executive Outreach',
-                    heading: 'Build a Repeatable Commercial & GovCon Revenue Pipeline',
-                    desc: 'Move beyond passive referrals. I execute targeted executive outreach, structure prime/sub teaming agreements, and position your capabilities directly in front of high-value decision-makers.',
-                    ctaText: 'Schedule a Free Consultation',
-                    topic: 'a Free Consultation regarding Strategic Business Development'
-                },
-                launch: {
-                    badge: 'Zero-to-One Venture Architecture',
-                    metric: 'Brand • Compliance • Digital Stack',
-                    heading: 'Launch a New Business or Specialized Division Ready to Win Day One',
-                    desc: 'Starting a new company or spin-off? I architect the complete operational foundation—from digital infrastructure and executive positioning to SAM.gov registration and go-to-market capture.',
-                    ctaText: 'Schedule a Free Consultation',
-                    topic: 'a Free Consultation regarding New Venture Launch & Infrastructure'
-                }
-            };
-
-            pillarTabs.forEach(tab => {
+            tierTabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    const key = tab.getAttribute('data-pillar');
-                    const data = pillarContent[key];
-                    if (!data) return;
-
-                    // Update active tab styles
-                    pillarTabs.forEach(t => {
-                        const isSelected = t === tab;
-                        t.setAttribute('aria-selected', isSelected ? 'true' : 'false');
-                        const icon = t.querySelector('i');
-                        const dot = t.querySelector('.pillar-dot');
-
-                        if (isSelected) {
-                            t.classList.remove('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
-                            t.classList.add('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
-                            if (icon) { icon.classList.remove('text-slate-400'); icon.classList.add('text-primary-600'); }
-                            if (dot) { dot.classList.remove('bg-transparent'); dot.classList.add('bg-primary-500'); }
+                    const selectedTier = tab.getAttribute('data-tier');
+                    tierTabs.forEach(t => {
+                        const isMatch = t === tab;
+                        if (isMatch) {
+                            t.classList.add('bg-primary-500', 'text-white', 'font-extrabold', 'shadow-xs');
+                            t.classList.remove('text-slate-600', 'font-bold');
                         } else {
-                            t.classList.remove('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
-                            t.classList.add('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
-                            if (icon) { icon.classList.remove('text-primary-600'); icon.classList.add('text-slate-400'); }
-                            if (dot) { dot.classList.remove('bg-primary-500'); dot.classList.add('bg-transparent'); }
+                            t.classList.remove('bg-primary-500', 'text-white', 'font-extrabold', 'shadow-xs');
+                            t.classList.add('text-slate-600', 'font-bold');
                         }
                     });
 
-                    // Update panel content
-                    pillarBadge.textContent = data.badge;
-                    pillarMetric.textContent = data.metric;
-                    pillarHeading.textContent = data.heading;
-                    pillarDesc.textContent = data.desc;
-                    pillarCtaText.textContent = data.ctaText;
-                    pillarCta.setAttribute('onclick', `selectInquiry('${data.topic}')`);
+                    tierCards.forEach(card => {
+                        if (card.getAttribute('data-tier-card') === selectedTier) {
+                            card.classList.remove('hidden');
+                            card.classList.add('flex', 'step-animate');
+                        } else {
+                            card.classList.add('hidden');
+                            card.classList.remove('flex', 'step-animate');
+                        }
+                    });
                 });
             });
 
-            /* 4. Contact Form Submission (Formspree AJAX Integration) */
+            /* 6. Formspree AJAX Submission */
             const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+
             if (contactForm) {
                 contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const btn = contactForm.querySelector('button[type="submit"]');
-                    const originalText = btn.innerText;
-
-                    // Set submitting state
-                    btn.disabled = true;
-                    btn.innerText = 'Sending Inquiry...';
-                    btn.classList.add('opacity-75', 'cursor-not-allowed');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
 
                     try {
-                        const formData = new FormData(contactForm);
                         const response = await fetch(contactForm.action, {
-                            method: contactForm.method,
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
+                            method: 'POST',
+                            body: new FormData(contactForm),
+                            headers: { 'Accept': 'application/json' }
                         });
 
                         if (response.ok) {
-                            btn.innerText = 'Inquiry Received';
-                            btn.classList.remove('bg-primary-500', 'hover:bg-primary-600', 'opacity-75', 'cursor-not-allowed');
-                            btn.classList.add('bg-emerald-600');
-
-                            showToast('Thank you! Megan will review your inquiry and follow up shortly.');
                             contactForm.reset();
-
-                            setTimeout(() => {
-                                btn.disabled = false;
-                                btn.innerText = originalText;
-                                btn.classList.remove('bg-emerald-600');
-                                btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
-                            }, 3500);
+                            showToast('Inquiry received! Megan will follow up shortly.');
                         } else {
-                            const result = await response.json();
-                            const errorMsg = result.errors
-                                ? result.errors.map(err => err.message).join(', ')
-                                : 'Unable to send inquiry. Please check your entries and try again.';
-                            throw new Error(errorMsg);
+                            const data = await response.json().catch(() => ({}));
+                            const errorMsg = data.errors ? data.errors.map(err => err.message).join(', ') : 'Submission failed. Please try again.';
+                            showToast(errorMsg, 'error');
                         }
-                    } catch (error) {
-                        btn.disabled = false;
-                        btn.innerText = originalText;
-                        btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                        showToast(error.message || 'Network error. Please try again or copy email directly.');
+                    } catch (err) {
+                        showToast('Network error. Please email business@meganfrench.tech directly.', 'error');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
                     }
                 });
             }
         });
-
-        /* Toast Notification Helper */
-        function showToast(message) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'pointer-events-auto flex items-center gap-2.5 px-4 py-3.5 rounded-2xl bg-slate-900 text-white text-sm font-medium shadow-xl border border-slate-700 transform transition-all duration-300 -translate-y-2 md:translate-y-4 opacity-0';
-            toast.innerHTML = `<i class="fas fa-check-circle text-emerald-400 shrink-0"></i><span>${message}</span>`;
-            container.appendChild(toast);
-
-            requestAnimationFrame(() => {
-                toast.classList.remove('-translate-y-2', 'md:translate-y-4', 'opacity-0');
-            });
-
-            setTimeout(() => {
-                toast.classList.add('-translate-y-2', 'md:translate-y-4', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        /* Clipboard Copy Helper */
-        function copyEmail() {
-            const helper = document.getElementById('clipboard-helper');
-            helper.select();
-            helper.setSelectionRange(0, 99999);
-            try {
-                document.execCommand('copy');
-                showToast('Copied business@meganfrench.tech to clipboard');
-            } catch (err) {
-                showToast('Email: business@meganfrench.tech');
-            }
-        }
-
-        /* Pre-fill inquiry subject in message box */
-        function selectInquiry(topic) {
-            const msgBox = document.getElementById('message');
-            if (msgBox) {
-                msgBox.value = `Hi Megan, I'd like to discuss ${topic} for our company. `;
-                msgBox.focus();
-            }
-        }
     </script>
 </body>
 </html>
