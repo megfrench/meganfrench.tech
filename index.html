@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Megan French - Procurement Director, Federal Contract Broker & Business Development Strategist. Helping commercial companies win high-value contracts and build modern digital infrastructure.">
-    <title>meganfrench.tech | Procurement, Federal Contract Brokerage &amp; Digital Infrastructure</title>
+    <title>meganfrench.tech | A Division of MEG AND GREG GROUP LLC </title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -82,15 +82,14 @@
 
     <!-- Top App Bar / Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-200 bg-white/95 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
-            <a href="#hero" class="text-xl md:text-2xl font-extrabold tracking-tight text-slate-900">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between gap-2">
+            <a href="#hero" class="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight text-slate-900 shrink-0">
                 meganfrench<span class="text-primary-500">.tech</span>
             </a>
 
             <!-- Mobile Direct Action Pill -->
-            <a href="#contact" onclick="selectInquiry('a Teaming Agreement')" class="md:hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-primary-500 active:bg-primary-600 text-white text-xs font-bold shadow-sm">
-                <span>Request a Teaming Agreement</span>
-                <i class="fas fa-arrow-right text-[10px]"></i>
+            <a href="#contact" onclick="selectInquiry('a Free Consultation')" class="md:hidden inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-primary-500 active:bg-primary-600 text-white text-[11px] font-bold shadow-sm leading-none whitespace-nowrap">
+                <span>Schedule a Free Consultation</span>
             </a>
 
             <!-- Desktop Nav Links -->
@@ -100,8 +99,8 @@
                 <li><a href="#engagement" class="hover:text-primary-600 transition-colors">Engagement</a></li>
                 <li><a href="#about" class="hover:text-primary-600 transition-colors">About</a></li>
                 <li>
-                    <a href="#contact" class="px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-all shadow-sm">
-                        Discuss a Contract
+                    <a href="#contact" onclick="selectInquiry('a Free Consultation')" class="px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-all shadow-sm">
+                        Schedule a Free Consultation
                     </a>
                 </li>
             </ul>
@@ -144,8 +143,8 @@
 
                 <!-- App-style Primary & Secondary Touch Buttons -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
-                    <a href="#contact" class="text-center px-7 py-4 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-lg shadow-primary-500/20">
-                        Start a Conversation
+                    <a href="#contact" onclick="selectInquiry('a Free Consultation')" class="text-center px-7 py-4 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-lg shadow-primary-500/20">
+                        Schedule a Free Consultation
                     </a>
                     <a href="#engagement" class="text-center px-7 py-4 rounded-2xl bg-white hover:bg-slate-50 active:scale-[0.99] text-slate-800 font-semibold text-base border border-slate-200 transition-all">
                         Explore Advisory &amp; Build Models
@@ -218,9 +217,9 @@
                         </div>
 
                         <div class="shrink-0">
-                            <a id="pillar-cta" href="#contact" onclick="selectInquiry('Federal & Prime Contract Brokerage')"
+                            <a id="pillar-cta" href="#contact" onclick="selectInquiry('a Free Consultation regarding Federal & Prime Contract Brokerage')"
                                class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-primary-600 active:scale-[0.98] text-white text-xs sm:text-sm font-bold transition-all">
-                                <span id="pillar-cta-text">Scope a Contract Bid</span>
+                                <span id="pillar-cta-text">Schedule a Free Consultation</span>
                                 <i class="fas fa-arrow-right text-xs"></i>
                             </a>
                         </div>
@@ -364,8 +363,8 @@
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Prime vendor portal &amp; due-diligence readiness</span></li>
                         </ul>
                     </div>
-                    <a href="#contact" onclick="selectInquiry('Digital Infrastructure & Business Modernization')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
-                        Scope Infrastructure Build
+                    <a href="#contact" onclick="selectInquiry('a Free Consultation regarding Digital Infrastructure & Business Modernization')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
+                        Schedule a Free Consultation
                     </a>
                 </div>
 
@@ -387,8 +386,8 @@
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Contracting officer &amp; prime liaison</span></li>
                         </ul>
                     </div>
-                    <a href="#contact" onclick="selectInquiry('a Teaming Agreement')" class="block text-center py-3.5 px-5 rounded-xl bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white font-bold text-sm transition-colors shadow-sm">
-                        Request a Teaming Agreement
+                    <a href="#contact" onclick="selectInquiry('a Free Consultation regarding Contract Brokerage & Teaming')" class="block text-center py-3.5 px-5 rounded-xl bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white font-bold text-sm transition-colors shadow-sm">
+                        Schedule a Free Consultation
                     </a>
                 </div>
 
@@ -407,8 +406,8 @@
                             <li class="flex items-start gap-2.5"><i class="fas fa-check text-primary-500 mt-1"></i><span>Direct support for CEOs, VPs &amp; Operations</span></li>
                         </ul>
                     </div>
-                    <a href="#contact" onclick="selectInquiry('Fractional Procurement & Growth Leadership')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
-                        Schedule Executive Call
+                    <a href="#contact" onclick="selectInquiry('a Free Consultation regarding Fractional Procurement & Growth Leadership')" class="block text-center py-3.5 px-5 rounded-xl border border-slate-300 text-slate-800 hover:border-primary-500 hover:text-primary-600 active:bg-slate-50 font-semibold text-sm transition-colors">
+                        Schedule a Free Consultation
                     </a>
                 </div>
             </div>
@@ -709,32 +708,32 @@
                     metric: 'RFI • RFP • Prime Subcontracting',
                     heading: 'Turn Shop & Field Capacity Into Awarded Federal and Prime Contracts',
                     desc: 'I source qualified solicitations, position your firm early during RFI/Sources Sought stages, assemble compliant FAR/DFARS proposal packages, and broker direct relationships with prime buyers.',
-                    ctaText: 'Scope a Contract Bid',
-                    topic: 'Federal & Prime Contract Brokerage'
+                    ctaText: 'Schedule a Free Consultation',
+                    topic: 'a Free Consultation regarding Federal & Prime Contract Brokerage'
                 },
                 infrastructure: {
                     badge: 'Legacy Modernization & Systems',
                     metric: 'Web • Portals • CRM & Automation',
                     heading: 'Upgrade Outdated Operations to Pass Prime & Enterprise Due Diligence',
                     desc: 'Primes and institutional buyers vet your digital footprint before awarding work. I replace legacy websites, manual intake, and disconnected tools with modern web architecture and automated workflows.',
-                    ctaText: 'Modernize Your Systems',
-                    topic: 'Digital Infrastructure & Business Modernization'
+                    ctaText: 'Schedule a Free Consultation',
+                    topic: 'a Free Consultation regarding Digital Infrastructure & Business Modernization'
                 },
                 bizdev: {
                     badge: 'B2B & Public-Sector Growth',
                     metric: 'Pipeline • Teaming • Executive Outreach',
                     heading: 'Build a Repeatable Commercial & GovCon Revenue Pipeline',
                     desc: 'Move beyond passive referrals. I execute targeted executive outreach, structure prime/sub teaming agreements, and position your capabilities directly in front of high-value decision-makers.',
-                    ctaText: 'Build Your Pipeline',
-                    topic: 'Strategic Business Development'
+                    ctaText: 'Schedule a Free Consultation',
+                    topic: 'a Free Consultation regarding Strategic Business Development'
                 },
                 launch: {
                     badge: 'Zero-to-One Venture Architecture',
                     metric: 'Brand • Compliance • Digital Stack',
                     heading: 'Launch a New Business or Specialized Division Ready to Win Day One',
                     desc: 'Starting a new company or spin-off? I architect the complete operational foundation—from digital infrastructure and executive positioning to SAM.gov registration and go-to-market capture.',
-                    ctaText: 'Launch Your Venture',
-                    topic: 'New Venture Launch & Infrastructure'
+                    ctaText: 'Schedule a Free Consultation',
+                    topic: 'a Free Consultation regarding New Venture Launch & Infrastructure'
                 }
             };
 
