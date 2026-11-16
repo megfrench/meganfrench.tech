@@ -619,7 +619,20 @@
 
     <!-- Consolidated JavaScript -->
     <script>
+        // Ensure clean initial load at the top of the page when opened from mobile links/texts
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.addEventListener('load', () => {
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
             /* 1. Sticky Navbar Elevation */
