@@ -18,13 +18,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // Ensure page always opens cleanly at the top unless an explicit hash is targeted
+        // Ensure page always opens cleanly at the very top on initial load & mobile webview restores
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        if (!window.location.hash) {
-            window.scrollTo(0, 0);
+
+        function forceScrollTop() {
+            const validHashes = ['#expertise', '#process', '#engagement', '#about', '#contact'];
+            if (!validHashes.includes(window.location.hash)) {
+                if (window.location.hash) {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                if (document.documentElement) document.documentElement.scrollTop = 0;
+                if (document.body) document.body.scrollTop = 0;
+            }
         }
+
+        forceScrollTop();
+        window.addEventListener('DOMContentLoaded', forceScrollTop);
+        window.addEventListener('load', () => {
+            forceScrollTop();
+            setTimeout(forceScrollTop, 50);
+        });
+        window.addEventListener('pageshow', forceScrollTop);
 
         tailwind.config = {
             theme: {
@@ -52,6 +69,7 @@
     <style>
         html, body {
             overflow-x: hidden;
+            overflow-anchor: none;
             -webkit-tap-highlight-color: transparent;
         }
         .no-scrollbar::-webkit-scrollbar {
