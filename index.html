@@ -130,15 +130,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Clean, Typography-Driven, Zero Decorative Clutter) -->
-    <section id="hero" class="pt-24 pb-14 md:pt-36 md:pb-24 bg-gradient-to-b from-slate-50 to-white">
+    <!-- Hero Section (Clean, Typography-Driven + Interactive Priority Selector) -->
+    <section id="hero" class="pt-24 pb-10 md:pt-32 md:pb-16 bg-gradient-to-b from-slate-50 to-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="max-w-3xl space-y-5 md:space-y-6">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary-50 text-primary-700 border border-primary-100">
-                    <span class="w-2 h-2 rounded-full bg-primary-500"></span>
-                    Procurement Director &bull; Contract Broker &bull; Business Development
-                </div>
-
+            <div class="max-w-3xl space-y-5">
                 <h1 class="text-3xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight text-slate-900 leading-[1.14]">
                     Win High-Value Contracts &amp; Modernize Your Digital Infrastructure to Scale.
                 </h1>
@@ -148,7 +143,7 @@
                 </p>
 
                 <!-- App-style Primary & Secondary Touch Buttons -->
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
                     <a href="#contact" class="text-center px-7 py-4 rounded-2xl bg-primary-500 hover:bg-primary-600 active:scale-[0.99] text-white font-bold text-base transition-all shadow-lg shadow-primary-500/20">
                         Start a Conversation
                     </a>
@@ -156,16 +151,79 @@
                         Explore Advisory &amp; Build Models
                     </a>
                 </div>
+            </div>
 
-                <!-- Horizontal Swipeable Sector Chips on Mobile -->
-                <div class="pt-5 border-t border-slate-200/70">
-                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Core Pillars &amp; Focus Areas</p>
-                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Federal &amp; Prime Contract Brokerage</span>
-                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Strategic Business Development</span>
-                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Digital Infrastructure &amp; Modernization</span>
-                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">Aerospace, Manufacturing &amp; Facilities</span>
-                        <span class="shrink-0 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">New Venture Launch Systems</span>
+            <!-- Interactive Executive Priority Explorer (Eliminates dead space & works like an app) -->
+            <div class="mt-8 md:mt-10 rounded-3xl bg-white border border-slate-200/90 shadow-lg shadow-slate-200/40 p-4 sm:p-6">
+                <div class="flex items-center justify-between gap-2 mb-3.5">
+                    <p class="text-xs font-extrabold uppercase tracking-wider text-primary-600">
+                        <i class="fas fa-sliders-h mr-1.5"></i>Select Your Primary Objective
+                    </p>
+                    <span class="text-[11px] font-medium text-slate-400 hidden sm:inline">Tap a focus area to preview execution scope</span>
+                </div>
+
+                <!-- Mobile-friendly 2x2 grid on phones, 4-col bar on desktop -->
+                <div role="tablist" aria-label="Primary Business Objective" class="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+                    <button type="button" role="tab" aria-selected="true" data-pillar="contracts"
+                        class="pillar-tab text-left p-3 rounded-2xl border-2 border-primary-500 bg-primary-50/60 text-slate-900 transition-all active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1">
+                            <i class="fas fa-file-signature text-primary-600 text-sm"></i>
+                            <span class="pillar-dot w-2 h-2 rounded-full bg-primary-500"></span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold leading-snug">Federal &amp; Prime Contracts</p>
+                    </button>
+
+                    <button type="button" role="tab" aria-selected="false" data-pillar="infrastructure"
+                        class="pillar-tab text-left p-3 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 text-slate-700 transition-all active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1">
+                            <i class="fas fa-server text-slate-400 text-sm"></i>
+                            <span class="pillar-dot w-2 h-2 rounded-full bg-transparent"></span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold leading-snug">Digital Infrastructure</p>
+                    </button>
+
+                    <button type="button" role="tab" aria-selected="false" data-pillar="bizdev"
+                        class="pillar-tab text-left p-3 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 text-slate-700 transition-all active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1">
+                            <i class="fas fa-chart-line text-slate-400 text-sm"></i>
+                            <span class="pillar-dot w-2 h-2 rounded-full bg-transparent"></span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold leading-snug">Business Development</p>
+                    </button>
+
+                    <button type="button" role="tab" aria-selected="false" data-pillar="launch"
+                        class="pillar-tab text-left p-3 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 text-slate-700 transition-all active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1">
+                            <i class="fas fa-rocket text-slate-400 text-sm"></i>
+                            <span class="pillar-dot w-2 h-2 rounded-full bg-transparent"></span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold leading-snug">New Venture Launch</p>
+                    </button>
+                </div>
+
+                <!-- Dynamic Detail Drawer -->
+                <div id="pillar-panel" class="rounded-2xl bg-slate-50 border border-slate-200/70 p-4 sm:p-5 transition-all duration-200">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="space-y-1.5 max-w-2xl">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span id="pillar-badge" class="px-2.5 py-0.5 rounded-md bg-primary-100 text-primary-700 text-[11px] font-bold">Manufacturing, Aerospace &amp; Facilities</span>
+                                <span id="pillar-metric" class="text-xs font-semibold text-slate-500">RFI &bull; RFP &bull; Subcontracting</span>
+                            </div>
+                            <h2 id="pillar-heading" class="text-base sm:text-lg font-extrabold text-slate-900">
+                                Turn Shop &amp; Field Capacity Into Awarded Federal and Prime Contracts
+                            </h2>
+                            <p id="pillar-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                I source qualified solicitations, position your firm early during RFI/Sources Sought stages, assemble compliant FAR/DFARS proposal packages, and broker direct relationships with prime buyers.
+                            </p>
+                        </div>
+
+                        <div class="shrink-0">
+                            <a id="pillar-cta" href="#contact" onclick="selectInquiry('Federal & Prime Contract Brokerage')"
+                               class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-primary-600 active:scale-[0.98] text-white text-xs sm:text-sm font-bold transition-all">
+                                <span id="pillar-cta-text">Scope a Contract Bid</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,7 +231,7 @@
     </section>
 
     <!-- Core Capabilities Section -->
-    <section id="expertise" class="py-14 md:py-24">
+    <section id="expertise" class="py-12 md:py-20">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="max-w-2xl mb-10 md:mb-14">
                 <span class="text-xs font-bold uppercase tracking-wider text-primary-600">What I Do</span>
@@ -410,8 +468,14 @@
                         Most capable commercial manufacturers, suppliers, and facilities operators miss out on lucrative federal and enterprise contracts—either because public-sector procurement is buried in compliance jargon, or because their digital presence and internal systems look stuck in 2008.
                     </p>
                     <p class="text-slate-600 text-base leading-relaxed">
-                        As a Procurement Director, Federal Contract Broker, and Business Development Strategist, I bridge both gaps. I modernize legacy operations (or build new ventures from the ground up), establish credible digital infrastructure, and drive direct contract capture from first RFI to award.
+                        As a Procurement Director, Federal Contract Broker, and the CEO &amp; Owner of <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 hover:text-primary-700 underline decoration-primary-300 underline-offset-4 transition-colors">Megan &amp; Greg Group</a>, a federal contracting LLC, I operate directly inside the acquisition lifecycle every day. I bridge the gap between operational readiness and contract capture—modernizing legacy systems (or launching new ventures from the ground up) and guiding companies from first RFI to prime award.
                     </p>
+                    <div class="pt-1">
+                        <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors group">
+                            <span>Explore Megan &amp; Greg Group</span>
+                            <i class="fas fa-arrow-up-right-from-square text-xs text-primary-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="lg:col-span-5 grid grid-cols-1 gap-3.5">
@@ -448,9 +512,14 @@
                         <div class="space-y-3.5 pt-3 text-sm">
                             <button type="button" onclick="copyEmail()" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 active:bg-slate-700 text-slate-200 transition-colors text-left">
                                 <i class="fas fa-envelope text-primary-400"></i>
-                                <span class="font-medium">hello@meganfrench.tech</span>
+                                <span class="font-medium">business@meganfrench.tech</span>
                                 <span class="ml-auto text-[11px] text-slate-400">Tap to copy</span>
                             </button>
+                            <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 active:bg-slate-700 text-slate-200 transition-colors text-left">
+                                <i class="fas fa-building text-primary-400"></i>
+                                <span class="font-medium">Megan &amp; Greg Group (Federal Contracting LLC)</span>
+                                <i class="fas fa-external-link-alt ml-auto text-[11px] text-slate-400"></i>
+                            </a>
                             <div class="flex items-center gap-3 px-3 py-2 text-slate-300">
                                 <i class="fas fa-map-marker-alt text-primary-400"></i>
                                 <span>United States • Nationwide Federal &amp; Prime Coverage</span>
@@ -470,11 +539,11 @@
 
                 <!-- Right Contact Form -->
                 <div class="lg:col-span-7 p-7 sm:p-10">
-                    <form id="contactForm" class="space-y-4">
+                    <form id="contactForm" action="https://formspree.io/f/moedebad" method="POST" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Your Name &amp; Title</label>
-                                <input type="text" id="name" name="name" placeholder="Alex Mercer, VP Operations" required
+                                <input type="text" id="name" name="name" placeholder="John Doe, VP Operations" required
                                     class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
                             </div>
                             <div>
@@ -485,7 +554,7 @@
                         </div>
                         <div>
                             <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Work Email</label>
-                            <input type="email" id="email" name="email" placeholder="alex@company.com" required
+                            <input type="email" id="email" name="email" placeholder="john@company.com" required
                                 class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-base sm:text-sm">
                         </div>
                         <div>
@@ -505,16 +574,41 @@
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-12">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-                <a href="#hero" class="text-xl font-extrabold tracking-tight text-white">
-                    meganfrench<span class="text-primary-500">.tech</span>
+            <div class="flex items-center gap-4">
+                <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" aria-label="Megan &amp; Greg Group Website" class="shrink-0 group">
+                    <!-- Uses MGGLogodark.png when hosted alongside index.html, with an exact vector fallback for standalone previews -->
+                    <img src="MGGLogodark.png" alt="M.E.G. G.R.E.G group."
+                         class="h-14 w-14 object-contain transition-transform duration-200 group-hover:scale-105"
+                         onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                    <svg class="hidden h-14 w-14 transition-transform duration-200 group-hover:scale-105" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="M.E.G. G.R.E.G group.">
+                        <circle cx="110" cy="110" r="102" stroke="#cbd5e1" stroke-opacity="0.3" stroke-width="1.2"/>
+                        <ellipse cx="110" cy="110" rx="102" ry="38" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
+                        <ellipse cx="110" cy="110" rx="44" ry="102" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
+                        <line x1="25" y1="55" x2="195" y2="165" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
+                        <line x1="195" y1="55" x2="25" y2="165" stroke="#cbd5e1" stroke-opacity="0.25" stroke-width="1"/>
+                        <circle cx="66" cy="48" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
+                        <circle cx="154" cy="48" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
+                        <circle cx="110" cy="110" r="3" fill="#cbd5e1" fill-opacity="0.45"/>
+                        <circle cx="52" cy="164" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
+                        <circle cx="168" cy="164" r="2.8" fill="#cbd5e1" fill-opacity="0.45"/>
+                        <text x="110" y="128" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="52" letter-spacing="1">M.E.G.</text>
+                        <text x="110" y="160" text-anchor="middle" fill="#5b7bb2" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="33" letter-spacing="1">G.R.E.G</text>
+                        <text x="164" y="178" text-anchor="middle" fill="#5b7bb2" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="16">group</text>
+                        <circle cx="195" cy="174" r="3.5" fill="#facc15"/>
+                    </svg>
                 </a>
-                <p class="text-xs text-slate-400 mt-1">Procurement Director &bull; Federal Contract Broker &bull; Business Development &amp; Digital Infrastructure</p>
+                <div>
+                    <a href="#hero" class="text-xl font-extrabold tracking-tight text-white">
+                        meganfrench<span class="text-primary-500">.tech</span>
+                    </a>
+                    <p class="text-xs text-slate-400 mt-1">CEO &amp; Owner, <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white underline underline-offset-2 transition-colors">Megan &amp; Greg Group</a> &bull; Procurement &amp; Digital Infrastructure</p>
+                </div>
             </div>
             <div class="flex flex-wrap items-center gap-6 text-xs font-medium">
                 <a href="#expertise" class="hover:text-white transition-colors">Capabilities</a>
                 <a href="#process" class="hover:text-white transition-colors">Process</a>
                 <a href="#engagement" class="hover:text-white transition-colors">Engagement</a>
+                <a href="https://megandgreggroup.com/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Megan &amp; Greg Group</a>
                 <a href="#contact" class="hover:text-white transition-colors">Contact</a>
             </div>
             <p class="text-xs text-slate-500">&copy; <span id="current-year"></span> Megan French. All rights reserved.</p>
@@ -522,7 +616,7 @@
     </footer>
 
     <!-- Hidden textarea for iFrame-safe clipboard copy -->
-    <textarea id="clipboard-helper" class="sr-only" aria-hidden="true">hello@meganfrench.tech</textarea>
+    <textarea id="clipboard-helper" class="sr-only" aria-hidden="true">business@meganfrench.tech</textarea>
 
     <!-- Consolidated JavaScript -->
     <script>
@@ -566,14 +660,21 @@
                 ],
                 retainer: [
                     { title: 'Digital & Ops Evolution', sub: 'Ongoing systems modernization, portal updates, and compliance audits.' },
-                    { title: 'Dedicated Growth & Capture', sub: 'Monthly federal brokerage and B2B business development execution.' },
-                    { title: 'Fractional Director', sub: 'Executive procurement, growth, and digital infrastructure leadership.' }
+                    { title: 'Dedicated Capture & BizDev', sub: 'Continuous federal/prime prospecting, pipeline management, and bid execution.' },
+                    { title: 'Executive Leadership', sub: 'Ongoing fractional procurement, vendor strategy, and growth advisory.' }
                 ]
             };
 
-            function updateEngagementMode(isRetainer) {
-                engagementSwitch.checked = isRetainer;
+            function setEngagementMode(isRetainer) {
+                if (engagementSwitch) engagementSwitch.checked = isRetainer;
                 const activeData = isRetainer ? modes.retainer : modes.sprint;
+
+                modeTitles.forEach((el, idx) => {
+                    if (activeData[idx]) el.textContent = activeData[idx].title;
+                });
+                modeSubs.forEach((el, idx) => {
+                    if (activeData[idx]) el.textContent = activeData[idx].sub;
+                });
 
                 if (isRetainer) {
                     labelRetainer.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
@@ -586,36 +687,143 @@
                     labelRetainer.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
                     labelRetainer.classList.add('text-slate-600', 'font-semibold');
                 }
-
-                modeTitles.forEach((el, idx) => { el.textContent = activeData[idx].title; });
-                modeSubs.forEach((el, idx) => { el.textContent = activeData[idx].sub; });
             }
 
             if (labelSprint && labelRetainer) {
-                labelSprint.addEventListener('click', () => updateEngagementMode(false));
-                labelRetainer.addEventListener('click', () => updateEngagementMode(true));
+                labelSprint.addEventListener('click', () => setEngagementMode(false));
+                labelRetainer.addEventListener('click', () => setEngagementMode(true));
             }
 
-            /* 4. Contact Form Submission */
+            /* 3b. Hero Interactive Objective Switcher */
+            const pillarTabs = document.querySelectorAll('.pillar-tab');
+            const pillarBadge = document.getElementById('pillar-badge');
+            const pillarMetric = document.getElementById('pillar-metric');
+            const pillarHeading = document.getElementById('pillar-heading');
+            const pillarDesc = document.getElementById('pillar-desc');
+            const pillarCta = document.getElementById('pillar-cta');
+            const pillarCtaText = document.getElementById('pillar-cta-text');
+
+            const pillarContent = {
+                contracts: {
+                    badge: 'Manufacturing, Aerospace & Facilities',
+                    metric: 'RFI • RFP • Prime Subcontracting',
+                    heading: 'Turn Shop & Field Capacity Into Awarded Federal and Prime Contracts',
+                    desc: 'I source qualified solicitations, position your firm early during RFI/Sources Sought stages, assemble compliant FAR/DFARS proposal packages, and broker direct relationships with prime buyers.',
+                    ctaText: 'Scope a Contract Bid',
+                    topic: 'Federal & Prime Contract Brokerage'
+                },
+                infrastructure: {
+                    badge: 'Legacy Modernization & Systems',
+                    metric: 'Web • Portals • CRM & Automation',
+                    heading: 'Upgrade Outdated Operations to Pass Prime & Enterprise Due Diligence',
+                    desc: 'Primes and institutional buyers vet your digital footprint before awarding work. I replace legacy websites, manual intake, and disconnected tools with modern web architecture and automated workflows.',
+                    ctaText: 'Modernize Your Systems',
+                    topic: 'Digital Infrastructure & Business Modernization'
+                },
+                bizdev: {
+                    badge: 'B2B & Public-Sector Growth',
+                    metric: 'Pipeline • Teaming • Executive Outreach',
+                    heading: 'Build a Repeatable Commercial & GovCon Revenue Pipeline',
+                    desc: 'Move beyond passive referrals. I execute targeted executive outreach, structure prime/sub teaming agreements, and position your capabilities directly in front of high-value decision-makers.',
+                    ctaText: 'Build Your Pipeline',
+                    topic: 'Strategic Business Development'
+                },
+                launch: {
+                    badge: 'Zero-to-One Venture Architecture',
+                    metric: 'Brand • Compliance • Digital Stack',
+                    heading: 'Launch a New Business or Specialized Division Ready to Win Day One',
+                    desc: 'Starting a new company or spin-off? I architect the complete operational foundation—from digital infrastructure and executive positioning to SAM.gov registration and go-to-market capture.',
+                    ctaText: 'Launch Your Venture',
+                    topic: 'New Venture Launch & Infrastructure'
+                }
+            };
+
+            pillarTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const key = tab.getAttribute('data-pillar');
+                    const data = pillarContent[key];
+                    if (!data) return;
+
+                    // Update active tab styles
+                    pillarTabs.forEach(t => {
+                        const isSelected = t === tab;
+                        t.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                        const icon = t.querySelector('i');
+                        const dot = t.querySelector('.pillar-dot');
+
+                        if (isSelected) {
+                            t.classList.remove('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
+                            t.classList.add('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
+                            if (icon) { icon.classList.remove('text-slate-400'); icon.classList.add('text-primary-600'); }
+                            if (dot) { dot.classList.remove('bg-transparent'); dot.classList.add('bg-primary-500'); }
+                        } else {
+                            t.classList.remove('border-2', 'border-primary-500', 'bg-primary-50/60', 'text-slate-900');
+                            t.classList.add('border', 'border-slate-200', 'bg-slate-50/60', 'text-slate-700');
+                            if (icon) { icon.classList.remove('text-primary-600'); icon.classList.add('text-slate-400'); }
+                            if (dot) { dot.classList.remove('bg-primary-500'); dot.classList.add('bg-transparent'); }
+                        }
+                    });
+
+                    // Update panel content
+                    pillarBadge.textContent = data.badge;
+                    pillarMetric.textContent = data.metric;
+                    pillarHeading.textContent = data.heading;
+                    pillarDesc.textContent = data.desc;
+                    pillarCtaText.textContent = data.ctaText;
+                    pillarCta.setAttribute('onclick', `selectInquiry('${data.topic}')`);
+                });
+            });
+
+            /* 4. Contact Form Submission (Formspree AJAX Integration) */
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
-                contactForm.addEventListener('submit', (e) => {
+                contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const btn = contactForm.querySelector('button');
+                    const btn = contactForm.querySelector('button[type="submit"]');
                     const originalText = btn.innerText;
 
-                    btn.innerText = 'Inquiry Received';
-                    btn.classList.remove('bg-primary-500', 'hover:bg-primary-600');
-                    btn.classList.add('bg-emerald-600');
+                    // Set submitting state
+                    btn.disabled = true;
+                    btn.innerText = 'Sending Inquiry...';
+                    btn.classList.add('opacity-75', 'cursor-not-allowed');
 
-                    showToast('Thank you! Megan will review your inquiry and follow up shortly.');
-                    contactForm.reset();
+                    try {
+                        const formData = new FormData(contactForm);
+                        const response = await fetch(contactForm.action, {
+                            method: contactForm.method,
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
 
-                    setTimeout(() => {
+                        if (response.ok) {
+                            btn.innerText = 'Inquiry Received';
+                            btn.classList.remove('bg-primary-500', 'hover:bg-primary-600', 'opacity-75', 'cursor-not-allowed');
+                            btn.classList.add('bg-emerald-600');
+
+                            showToast('Thank you! Megan will review your inquiry and follow up shortly.');
+                            contactForm.reset();
+
+                            setTimeout(() => {
+                                btn.disabled = false;
+                                btn.innerText = originalText;
+                                btn.classList.remove('bg-emerald-600');
+                                btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
+                            }, 3500);
+                        } else {
+                            const result = await response.json();
+                            const errorMsg = result.errors
+                                ? result.errors.map(err => err.message).join(', ')
+                                : 'Unable to send inquiry. Please check your entries and try again.';
+                            throw new Error(errorMsg);
+                        }
+                    } catch (error) {
+                        btn.disabled = false;
                         btn.innerText = originalText;
-                        btn.classList.remove('bg-emerald-600');
-                        btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
-                    }, 3000);
+                        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                        showToast(error.message || 'Network error. Please try again or copy email directly.');
+                    }
                 });
             }
         });
@@ -645,9 +853,9 @@
             helper.setSelectionRange(0, 99999);
             try {
                 document.execCommand('copy');
-                showToast('Copied hello@meganfrench.tech to clipboard');
+                showToast('Copied business@meganfrench.tech to clipboard');
             } catch (err) {
-                showToast('Email: hello@meganfrench.tech');
+                showToast('Email: business@meganfrench.tech');
             }
         }
 
